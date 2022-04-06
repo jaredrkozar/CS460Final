@@ -15,7 +15,7 @@ class Patient(models.model):
     heart_rate = models.PositiveIntegerField(null=True)
     blood_pressure_upper = models.PositiveIntegerField(null=True)
     blood_pressure_lower = models.PositiveIntegerField(null=True)
-    religious_restriction = models.OneToOneField('ReligiousRestriction', null=True)
+    religious_restriction = models.CharField()
     doctor_note = models.CharField(null=True)
     nurse_note = models.CharField(null=True)
     nights_stayed = models.PositiveSmallIntegerField(default=0)
@@ -72,15 +72,11 @@ class Test(models.model):
         ('L', 'Stool Test'),
     )
     test = models.CharField(max_length=1,
-                                  choices=test_options)
+                            choices=test_options)
     patient = models.ForeignKey('Patient')
 
 
 class Medication(models.model):
-    pass
-
-
-class ReligiousRestriction(models.model):
     pass
 
 
@@ -89,12 +85,36 @@ class EmergencyContact(models.model):
 
 
 class Diagnose(models.model):
-    pass
+    diagnose_options = (
+        ('A', 'Diabetes'),
+        ('B', 'Hypertension'),
+        ('C', 'Covid'),
+        ('D', 'Ammonida'),
+        ('E', 'Asthma'),
+        ('F', 'Stroke'),
+        ('G', 'Heart attack'),
+    )
+    diagnose = models.CharField(max_length=1,
+                                choices=diagnose_options)
+    patient = models.ForeignKey('Patient')
 
 
 class CovidVaccineInfo(models.Model):
-    pass
+    first_shot = models.OneToOneField('CovidVaccineShot')
+    second_shot = models.OneToOneField('CovidVaccineShot')
+    booster_shot = models.OneToOneField('CovidVaccineShot')
+    patient = models.ForeignKey('Patient')
 
 
 class CovidVaccineShot(models.Model):
-    pass
+    brand_options = (
+        ('P', 'Pfizer'),
+        ('M', 'Moderna'),
+        ('A', 'AstraZeneca'),
+        ('J', '	Johnson & Johnson'),
+        ('N', 'Novavax'),
+        ('R', 'Not taken'),
+    )
+    brand = models.CharField(max_length=1,
+                             choices=brand_options)
+    date_received = models.DateField()
