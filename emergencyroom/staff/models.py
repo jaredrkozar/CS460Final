@@ -16,10 +16,16 @@ class Patient(models.model):
     symptoms = models.ManyToManyField('Symptom')
     allergies = models.ManyToManyField('Allergy')
     religious_restriction = models.OneToOneField('ReligiousRestriction', null=True)
-
+    doctor_note = models.CharField(null=True)
+    nurse_note = models.CharField(null=True)
+    nights_stayed = models.PositiveSmallIntegerField(default=0)
+    bill = models.PositiveBigIntegerField()
 
     class Meta:
-        permissions = ('')
+        permissions = (('doctor', 'Is a doctor'),
+                       ('nurse', 'Is a nurse'),
+                       ('medical professional', 'Is a nurse or doctor'),
+                       ('billing', 'Is at the billing desk'))
 
 
 class Symptom(models.model):
