@@ -7,12 +7,19 @@ from decimal import Decimal
 
 class Patient(models.model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    first_name = models.CharField()
+    last_name = models.CharField()
     date_of_birth = models.DateField(null=True, Blank=True)
     height = models.DoubleField(help_text='Height in cm', validators=[MinValueValidator(Decimal('0.01'))])
     weight = models.DoubleField(help_text='Weight in kg,', validators=[MinValueValidator(Decimal('0.01'))])
     heart_rate = models.PositiveIntegerField(null=True)
     symptoms = models.ManyToManyField('Symptom')
     allergies = models.ManyToManyField('Allergy')
+    religious_restriction = models.OneToOneField('ReligiousRestriction', null=True)
+
+
+    class Meta:
+        permissions = ('')
 
 
 class Symptom(models.model):
@@ -31,7 +38,7 @@ class Medication(models.model):
     pass
 
 
-class ReligiousRestrictions(models.model):
+class ReligiousRestriction(models.model):
     pass
 
 
