@@ -4,6 +4,8 @@ from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 
+from emergencyroom.staff.models import Patient, Allergy, Symptom, Test, Medication, EmergencyContact, Diagnose, \
+    CovidVaccineInfo, CovidVaccineShot, Bill
 
 '''#superuser info
 #name: admin
@@ -12,6 +14,19 @@ from django.contrib.auth.models import User
 
 #for model in models:
  #   admin.site.register(model)
+
+admin.site.register(Patient)
+admin.site.register(Symptom)
+admin.site.register(Allergy)
+admin.site.register(Test)
+admin.site.register(Medication)
+admin.site.register(EmergencyContact)
+admin.site.register(Diagnose)
+admin.site.register(CovidVaccineInfo)
+admin.site.register(CovidVaccineShot)
+admin.site.register(Bill)
+
+
 
 group = Group.objects.get(name='doctors')
 group2 = Group.objects.get(name='nurses')
