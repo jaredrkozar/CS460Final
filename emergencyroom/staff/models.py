@@ -56,12 +56,12 @@ class Patient(models.Model):
                        ('billing', 'Is at the billing desk'))
         ordering = ['last_name', 'first_name']
 
-        def get_absolute_url(self):
-            return reverse('patient-detail', args=[str(self.id)])
+    def get_absolute_url(self):
+        return reverse('patient-detail', args=[str(self.id)])
 
-        def __str__(self):
-            """String for representing the Model object."""
-            return f'{self.last_name}, {self.first_name}'
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.last_name}, {self.first_name}'
 
 
 class Symptom(models.Model):
