@@ -2,6 +2,8 @@ from django.core.validators import MinValueValidator
 from django.db import models
 import uuid
 from decimal import Decimal
+from django.urls import reverse
+
 
 
 class Patient(models.Model):
@@ -52,6 +54,14 @@ class Patient(models.Model):
                        ('nurse', 'Is a nurse'),
                        ('medical professional', 'Is a nurse or doctor'),
                        ('billing', 'Is at the billing desk'))
+        ordering = ['last_name', 'first_name']
+
+        def get_absolute_url(self):
+            return reverse('patient-detail', args=[str(self.id)])
+
+        def __str__(self):
+            """String for representing the Model object."""
+            return f'{self.last_name}, {self.first_name}'
 
 
 class Symptom(models.Model):
@@ -104,6 +114,10 @@ class EmergencyContact(models.Model):
     last_name = models.CharField(max_length=20)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=20)
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return f'{self.last_name}, {self.first_name}'
 
 
 class Diagnose(models.Model):
