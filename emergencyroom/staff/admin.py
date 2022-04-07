@@ -38,4 +38,4 @@ group2.permissions.add(permission4)
 #billing2 = User.objects.create_user('billing2', 'email@email.com', 'pw')
 #registration1 = User.objects.create_user('registration1', 'email@email.com', 'pw')
 #registration2 = User.objects.create_user('registration2', 'email@email.com', 'pw')
-
+#a
