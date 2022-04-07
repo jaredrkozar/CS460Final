@@ -4,7 +4,7 @@ from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 
-from emergencyroom.staff.models import Patient, Allergy, Symptom, Test, Medication, EmergencyContact, Diagnose, \
+from .models import Patient, Allergy, Symptom, Test, Medication, EmergencyContact, Diagnose, \
     CovidVaccineInfo, CovidVaccineShot, Bill
 
 '''#superuser info
