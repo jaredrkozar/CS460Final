@@ -156,7 +156,8 @@ class CovidVaccineShot(models.Model):
     brand = models.CharField(max_length=1,
                              choices=brand_options)
     date_received = models.DateField()
-    #shot_id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    def __str__(self):
+        return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand,date=self.date_received)
 
 
 class Bill(models.Model):

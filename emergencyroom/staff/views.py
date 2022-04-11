@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Patient, EmergencyContact
+from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
@@ -18,11 +18,29 @@ class PatientListView(generic.ListView):
     paginate_by = 10
 
 
+class CovidVaccineInfo:
+    pass
+
+
 def patient_view(request, pk):
     patient = Patient.objects.get(pk=pk)
     emergency_contact_list = EmergencyContact.objects.filter(patient=pk)
-    context = {'patient' : patient,
-               'emergency_contact_list':emergency_contact_list}
+    symptom_list = Symptom.objects.filter(patient=pk)
+    test_list = Test.objects.filter(patient=pk)
+    covid_vaccine_list = CovidVaccineInfo.objects.filter(patient=pk)
+    diagnosis_list = Diagnose.objects.filter(patient=pk)
+    medication_list = Medication.objects.filter(patient=pk)
+    allergy_list = Allergy.objects.filter(patient=pk)
+
+    context = {'patient': patient,
+               'emergency_contact_list': emergency_contact_list,
+               'symptom_list': symptom_list,
+               'test_list':test_list,
+               'covid_vaccine_list':covid_vaccine_list,
+               'diagnosis_list':diagnosis_list,
+               'medication_list':medication_list,
+               'allergy_list':allergy_list
+               }
     return render(request, 'staff/patient_detail.html', context)
 
 
