@@ -6,9 +6,8 @@ from decimal import Decimal
 from django.urls import reverse
 
 
-
 class Patient(models.Model):
-    #id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField(null=True)
@@ -21,7 +20,7 @@ class Patient(models.Model):
     doctor_note = models.TextField(null=True)
     nurse_note = models.TextField(null=True)
     nights_stayed = models.PositiveSmallIntegerField(default=0)
-    #bill = models.PositiveBigIntegerField()
+    # bill = models.PositiveBigIntegerField()
     drug_usage = models.BooleanField(null=True)
     discharge_instructions = models.TextField(null=True)
     gender_options = (
@@ -31,7 +30,7 @@ class Patient(models.Model):
     )
     gender = models.CharField(max_length=1,
                               choices=gender_options,
-                              blank=True,)
+                              blank=True, )
     race = models.CharField(null=True, max_length=20)
     sexual_active = models.BooleanField(null=True)
     IV = models.BooleanField()
@@ -49,7 +48,8 @@ class Patient(models.Model):
                                   choices=blood_type_options,
                                   blank=True,
                                   )
-    #doctor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    # doctor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         permissions = (('doctor', 'Is a doctor'),
@@ -110,7 +110,6 @@ class Medication(models.Model):
     )
 
 
-
 class EmergencyContact(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
@@ -156,8 +155,9 @@ class CovidVaccineShot(models.Model):
     brand = models.CharField(max_length=1,
                              choices=brand_options)
     date_received = models.DateField()
+
     def __str__(self):
-        return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand,date=self.date_received)
+        return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand, date=self.date_received)
 
 
 class Bill(models.Model):
