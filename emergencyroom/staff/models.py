@@ -55,7 +55,8 @@ class Patient(models.Model):
         permissions = (('doctor', 'Is a doctor'),
                        ('nurse', 'Is a nurse'),
                        ('medical professional', 'Is a nurse or doctor'),
-                       ('billing', 'Is at the billing desk'))
+                       ('billing', 'Is at the billing desk'),
+                       ('registration','is a registrar desk'))
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
