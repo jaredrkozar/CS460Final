@@ -108,7 +108,7 @@ class Medication(models.Model):
         ('F', 'Alteplase'),
         ('G', 'Aspirin'),
     )
-    diagnose = models.CharField(max_length=1,
+    medicine = models.CharField(max_length=1,
                                 choices=medicine_options)
 
 
