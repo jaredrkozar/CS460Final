@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 import uuid
@@ -7,7 +8,7 @@ from django.urls import reverse
 
 
 class Patient(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    #id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     date_of_birth = models.DateField(null=True)
@@ -48,6 +49,7 @@ class Patient(models.Model):
                                   choices=blood_type_options,
                                   blank=True,
                                   )
+    #doctor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         permissions = (('doctor', 'Is a doctor'),
