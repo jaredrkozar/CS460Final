@@ -21,6 +21,9 @@
                 {% if request.user|has_group:'medical_professional' %}
                 <li><a href="{% url 'patients' %}">All Patients</a></li>
                 {% endif %}
+                 {% if request.user|has_group:'registrar' %}
+                <li><a href="{% url 'new_patient' %}">Add Patient</a></li>
+                {% endif %}
             </ul>
             {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>

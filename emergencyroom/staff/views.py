@@ -48,3 +48,9 @@ class CreatePatient(CreateView):
     fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
               'blood_pressure_lower', 'religious_restriction', 'doctor_note', 'nurse_note', 'nights_stayed',
               'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']
+
+class CreateEmergencyContact(CreateView):
+    model = Patient
+    fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
+              'blood_pressure_lower', 'religious_restriction', 'doctor_note', 'nurse_note', 'nights_stayed',
+                  'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']

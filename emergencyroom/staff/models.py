@@ -66,7 +66,6 @@ class Patient(models.Model):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
-
 class Symptom(models.Model):
     symptom = models.CharField(max_length=20)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
