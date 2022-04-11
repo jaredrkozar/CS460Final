@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Patient
+from .models import Patient, EmergencyContact
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
@@ -20,7 +20,9 @@ class PatientListView(generic.ListView):
 
 def patient_view(request, pk):
     patient = Patient.objects.get(pk=pk)
-    context = {'patient' : patient}
+    emergency_contact_list = EmergencyContact.objects.filter(patient=pk)
+    context = {'patient' : patient,
+               'emergency_contact_list':emergency_contact_list}
     return render(request, 'staff/patient_detail.html', context)
 
 
