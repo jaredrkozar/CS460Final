@@ -58,6 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'emergencyroom.urls'
+LOGIN_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {

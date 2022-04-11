@@ -1,0 +1,11 @@
+.logoutButton {
+    background-color: red;
+    color: white;
+    border-radius: 9px;
+}
+
+.sidebar-nav > li {
+    color: blue;
+
+}
+
