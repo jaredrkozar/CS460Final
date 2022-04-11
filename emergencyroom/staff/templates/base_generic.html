@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load auth_extras %}
 <head>
     {% block title %}<title></title>{% endblock %}
     <meta charset="utf-8">
@@ -17,7 +18,9 @@
             {% block sidebar %}
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Home</a></li>
+                {% if request.user|has_group:'doctors' %}
                 <li><a href="{% url 'patients' %}">All Patients</a></li>
+                {% endif %}
             </ul>
             {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
