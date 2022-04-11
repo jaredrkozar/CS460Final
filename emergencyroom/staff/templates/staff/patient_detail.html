@@ -24,4 +24,11 @@
 <h3>Sexually Activity {{ patient.sexual_active }}</h3>
 <h3>IV {{ patient.IV }}</h3>
 <h3>Blood Type {{ patient.blood_type }}</h3>
+{% if medication_list %}
+      {% for med in medication_list %}
+      <li>
+        <a >{{med.get_medicine_display}}</a>
+      </li>
+{%  endfor %}
+{% endif %}
 {% endblock %}
