@@ -94,7 +94,7 @@ class Test(models.Model):
     test = models.CharField(max_length=1,
                             choices=test_options)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    cost = models.FloatField(help_text='Weight in kg,', validators=[MinValueValidator(Decimal('0.01'))])
+    cost = models.FloatField(help_text='Weight in kg: ', validators=[MinValueValidator(Decimal('0.01'))])
 
 
 class Medication(models.Model):
@@ -108,6 +108,7 @@ class Medication(models.Model):
         ('F', 'Alteplase'),
         ('G', 'Aspirin'),
     )
+
     medicine = models.CharField(max_length=1,
                                 choices=medicine_options)
 

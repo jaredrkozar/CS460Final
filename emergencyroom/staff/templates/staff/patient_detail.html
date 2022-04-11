@@ -24,11 +24,27 @@
 <h3>Sexually Activity {{ patient.sexual_active }}</h3>
 <h3>IV {{ patient.IV }}</h3>
 <h3>Blood Type {{ patient.blood_type }}</h3>
-{% if medication_list %}
-      {% for med in medication_list %}
-      <li>
-        <a >{{med.get_medicine_display}}</a>
-      </li>
-{%  endfor %}
-{% endif %}
+
+<h3>Medication: </h3>
+    {% if medication_list %}
+           {% for med in medication_list %}
+           <li>
+             <a >{{med.get_medicine_display}}</a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient is not on any medication..</p>
+     {% endif %}
+
+<h3>Emergency Contacts: </h3>
+    {% if emergency_contact_list %}
+           {% for contact in emergency_contact_list %}
+           <li>
+             <a >Name: {{contact.first_name}} {{contact.last_name}} Phone number: {{contact.phone_number}}</a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient has no emergency contacts.</p>
+     {% endif %}
+
 {% endblock %}

@@ -37,9 +37,12 @@ def patient_view(request, pk):
                'medication_list': medication_list,
                'allergy_list': allergy_list
                }
+
     return render(request, 'staff/patient_detail.html', context)
 
 
+#@login_required
+#@permission_required("medical professional", raise_exception=True)
 class CreatePatient(CreateView):
     model = Patient
     fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
