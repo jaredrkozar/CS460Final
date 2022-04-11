@@ -31,6 +31,7 @@ admin.site.register(Bill)
 group = Group.objects.get(name='doctors')
 group2 = Group.objects.get(name='nurses')
 group3 = Group.objects.get(name='billing')
+group4 = Group.objects.get(name='medical_professional')
 
 content_type = ContentType.objects.get(app_label='staff', model='patient')
 permission = Permission.objects.get(codename='doctor', content_type=content_type)
@@ -43,6 +44,7 @@ group2.permissions.add(permission2)
 group3.permissions.add(permission3)
 group.permissions.add(permission4)
 group2.permissions.add(permission4)
+group4.permissions.add(permission4)
 
 
 #doctor1 = User.objects.create_user('doctor1', 'email@email.com', 'pw')
