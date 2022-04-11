@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
-from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy,CovidVaccineInfo
+from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
@@ -16,7 +16,6 @@ def index(request):
 class PatientListView(generic.ListView):
     model = Patient
     paginate_by = 10
-
 
 
 def patient_view(request, pk):
