@@ -2,12 +2,33 @@
 
 {% block content %}
 
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit" />
-
-</form>
+<div class="container mt-4">
+    <form method="post">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">
+                <h4>Create Patient</h4>
+            </div>
+            <div class="card-body">
+                {{ form.non_form_errors }}
+                {{ form.as_p }}
+                <h5 class="text-info">Add Emergency Contacts</h5>
+                {{ emergency_contact_formset.non_form_errors }}
+                {{ emergency_contact_formset.management_form }}
+                {% for form in emergency_contact_formset %}
+                <div class="d-flex py-1 inline {{ emergency_contact_formset.prefix }}">
+                    <div>{{form.name.label}}: {{ form.name }}</div>
+                    <div class="ml-4">{{form.value.label}}: {{ form.value }}</div>
+                    {% if emergency_contact_formset.can_delete %}
+                        <div class="ml-4">{{ form.DELETE }} {{ form.DELETE.label }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mt-3 mb-5">
+            <button type="submit" class="px-5 btn btn-info">Submit</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
