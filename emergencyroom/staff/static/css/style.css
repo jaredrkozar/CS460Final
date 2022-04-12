@@ -6,23 +6,35 @@
 ul {
     white-space:nowrap;
 }
-li {
-    position: relative;
-    left: 15px;
-}
-
-li > a {
-    font-size: 40px;
-  color: hotpink;
-}
-
-li > a:hover {
-  background-color: rgba(0,0,255, .3);
-    padding: 10px;
-    border-radius: 10px;
-}
 
 button {
     background-color: transparent;
+}
 
+.sidebar-view > * {
+     font-size: 40px;
+    color: #0077ff;
+    position: relative;
+    left: 15px;
+    -o-transition:all .2s ease-in;
+-webkit-transition:all .2s ease-in;
+transition: all .2s ease-in;
+}
+
+.sidebar-view > *:hover {
+    background-color: rgba(0, 119, 255, 10);
+    border-radius: 10px;
+}
+
+
+.sidebar-view {
+        display: grid;
+    grid-template-rows: repeat(6, minmax(4%, 1fr));
+    grid-gap: 10px;
+}
+
+.home {
+    font-size: 20px;
+    position: relative;
+    left: 50%;
 }
