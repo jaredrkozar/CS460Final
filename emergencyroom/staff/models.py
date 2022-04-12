@@ -34,7 +34,7 @@ class Patient(models.Model):
                               blank=True, )
     race = models.CharField(null=True, max_length=20)
     sexual_active = models.BooleanField(null=True)
-    IV = models.BooleanField()
+    IV = models.BooleanField(null=True)
     blood_type_options = (
         ('1', 'O negative'),
         ('2', 'O positive'),
