@@ -74,3 +74,5 @@ def emergency_contact_form(request,pk):
         else:
             print('invalid')
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
+
