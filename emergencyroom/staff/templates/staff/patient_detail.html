@@ -10,20 +10,30 @@
      <h3>Date of Birth {{ patient.date_of_birth }}</h3>
 <h3>Height {{ patient.height }}</h3>
 <h3>Weight {{ patient.weight }}</h3>
-<!--<h3>Heart Rate {{ patient.heart_rate }}</h3>-->
+{% if request.user|has_group:'medical_professional' %}
+<h3>Heart Rate {{ patient.heart_rate }}</h3>
 <h3>Blood Pressure (Upper) {{ patient.blood_pressure_upper }}</h3>
 <h3>Blood Pressure (Lower) {{ patient.blood_pressure_lower }}</h3>
+{%endif%}
 <h3>Religious Restrictions {{ patient.religious_restriction }}</h3>
+{% if request.user|has_group:'medical_professional' %}
 <h3>Doctor Notes {{ patient.doctor_note }}</h3>
 <h3>Nurse Notes {{ patient.nurse_note }}</h3>
+{%endif%}
 <h3>Number of Nights Stayed {{ patient.nights_stayed }}</h3>
 <h3>Drug Usage {{ patient.drug_usage }}</h3>
+{% if request.user|has_group:'medical_professional' %}
 <h3>Discharge Instructions {{ patient.discharge_instructions }}</h3>
+{%endif%}
 <h3>Gender {{ patient.get_gender_display }}</h3>
 <h3>Race {{ patient.race }}</h3>
 <h3>Sexually Activity {{ patient.sexual_active }}</h3>
+{% if request.user|has_group:'medical_professional' %}
+
 <h3>IV {{ patient.IV }}</h3>
+{% endif %}
 <h3>Blood Type {{ patient.blood_type }}</h3>
+{% if request.user|has_group:'medical_professional' %}
 
 <h3>Medication: </h3>
     {% if medication_list %}
@@ -40,7 +50,7 @@
      {% endif %}
 <a href={{patient.get_med_link}}>new medication</a>
 
-
+     {% endif %}
 <h3>Emergency Contacts: </h3>
     {% if emergency_contact_list %}
            {% for contact in emergency_contact_list %}
@@ -52,6 +62,7 @@
     <p>THis patient has no emergency contacts.</p>
      {% endif %}
 <a href={{patient.get_contact_link}}>new contact</a>
+{% if request.user|has_group:'medical_professional' %}
 
 <h3>Symptoms: </h3>
     {% if symptom_list %}
@@ -88,6 +99,8 @@
     {% else %}
     <p>THis patient has no emergency contacts.</p>
      {% endif %}
+{% endif %}
+
 <a href={{patient.get_test_link}}>new test</a>
 {% if request.user|has_group:'nurses' %}
 
