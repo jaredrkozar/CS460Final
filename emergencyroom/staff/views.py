@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import HttpResponseRedirect
-from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm
+from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -131,3 +131,18 @@ def allergy_form(request,pk):
         else:
             print('invalid')
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
+
+def patient_nurse_form(request,pk):
+    if request.method == "GET":
+        patient = Patient.objects.get(id=pk)
+        form = PatientNurseForm(instance = patient)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    else:
+        patient = Patient.objects.get(id=pk)
+        form = PatientNurseForm(request.POST, instance=patient)
+    if form.is_valid():
+        form.save()
+    return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
