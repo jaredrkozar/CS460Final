@@ -24,16 +24,18 @@
 <h3>IV {{ patient.IV }}</h3>
 <h3>Blood Type {{ patient.blood_type }}</h3>
 
-<!--<h3>Medication: </h3>-->
-<!--    {% if medication_list %}-->
-<!--           {% for med in medication_list %}-->
-<!--           <li>-->
-<!--             <a >{{med.get_medicine_display}}</a>-->
-<!--           </li>-->
-<!--     {%  endfor %}-->
-<!--    {% else %}-->
-<!--    <p>THis patient is not on any medication..</p>-->
-<!--     {% endif %}-->
+<h3>Medication: </h3>
+    {% if medication_list %}
+           {% for med in medication_list %}
+           <li>
+             <a >{{med.get_medicine_display}}</a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient is not on any medication..</p>
+     {% endif %}
+<a href={{patient.get_med_link}}>new medication</a>
+
 
 <h3>Emergency Contacts: </h3>
     {% if emergency_contact_list %}

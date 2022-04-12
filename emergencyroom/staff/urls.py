@@ -9,7 +9,8 @@ urlpatterns = [
     path('patient/<int:pk>', views.patient_view, name='patient-detail'),
     path('newPatient', views.CreatePatientView.as_view(), name='new_patient'),
     path('newContact/<int:pk>', views.emergency_contact_form, name='new_contact'),
-    path('newSymptom/<int:pk>', views.symptom_contact_form, name='new_symptom'),
+    path('newSymptom/<int:pk>', views.symptom_form, name='new_symptom'),
+    path('newMed/<int:pk>', views.medicine_form, name='new_med'),
 
 ]
 

@@ -69,6 +69,10 @@ class Patient(models.Model):
     def get_symptom_link(self):
         return reverse('new_symptom', args=[str(self.id)])
 
+    def get_med_link(self):
+        return reverse('new_med', args=[str(self.id)])
+
+
 
     def __str__(self):
         """String for representing the Model object."""
@@ -119,7 +123,7 @@ class Medication(models.Model):
     )
 
     medicine = models.CharField(max_length=1,
-                                choices=medicine_options)
+                                choices=medicine_options, null=False)
 
 
 class EmergencyContact(models.Model):
