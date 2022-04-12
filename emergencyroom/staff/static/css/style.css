@@ -1,0 +1,28 @@
+.logoutButton {
+    background-color: red;
+    color: white;
+}
+
+ul {
+    white-space:nowrap;
+}
+li {
+    position: relative;
+    left: 15px;
+}
+
+li > a {
+    font-size: 40px;
+  color: hotpink;
+}
+
+li > a:hover {
+  background-color: rgba(0,0,255, .3);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+button {
+    background-color: transparent;
+
+}

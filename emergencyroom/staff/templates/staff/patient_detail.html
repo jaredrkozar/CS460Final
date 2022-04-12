@@ -9,7 +9,7 @@
      <h3>Date of Birth {{ patient.date_of_birth }}</h3>
 <h3>Height {{ patient.height }}</h3>
 <h3>Weight {{ patient.weight }}</h3>
-<h3>Heart Rate {{ patient.heart_rate }}</h3>
+<!--<h3>Heart Rate {{ patient.heart_rate }}</h3>-->
 <h3>Blood Pressure (Upper) {{ patient.blood_pressure_upper }}</h3>
 <h3>Blood Pressure (Lower) {{ patient.blood_pressure_lower }}</h3>
 <h3>Religious Restrictions {{ patient.religious_restriction }}</h3>
@@ -25,16 +25,16 @@
 <h3>IV {{ patient.IV }}</h3>
 <h3>Blood Type {{ patient.blood_type }}</h3>
 
-<h3>Medication: </h3>
-    {% if medication_list %}
-           {% for med in medication_list %}
-           <li>
-             <a >{{med.get_medicine_display}}</a>
-           </li>
-     {%  endfor %}
-    {% else %}
-    <p>THis patient is not on any medication..</p>
-     {% endif %}
+<!--<h3>Medication: </h3>-->
+<!--    {% if medication_list %}-->
+<!--           {% for med in medication_list %}-->
+<!--           <li>-->
+<!--             <a >{{med.get_medicine_display}}</a>-->
+<!--           </li>-->
+<!--     {%  endfor %}-->
+<!--    {% else %}-->
+<!--    <p>THis patient is not on any medication..</p>-->
+<!--     {% endif %}-->
 
 <h3>Emergency Contacts: </h3>
     {% if emergency_contact_list %}
