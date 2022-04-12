@@ -81,6 +81,9 @@ class Patient(models.Model):
     def get_nurse_url(self):
         return reverse('patient_nurse_form', args=[str(self.id)])
 
+    def get_doctor_url(self):
+        return reverse('patient_doctor_form', args=[str(self.id)])
+
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'

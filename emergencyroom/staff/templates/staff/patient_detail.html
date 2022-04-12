@@ -92,4 +92,8 @@
 {% if request.user|has_group:'nurses' %}
 
 {% endif %}
+{% if request.user|has_group:'doctors' %}
+<a href = {{patient.get_doctor_url}}>Edit</a>
+{% endif %}
+
 {% endblock %}
