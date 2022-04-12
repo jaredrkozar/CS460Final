@@ -1,10 +1,12 @@
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm, \
-    PatientDoctorForm
+    PatientDoctorForm, CreatePatientForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 def index(request):
@@ -12,13 +14,13 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-# @login_required
-# @permission_required("medical professional", raise_exception=True)
 class PatientListView(generic.ListView):
     model = Patient
     paginate_by = 10
 
 
+@login_required
+@permission_required('staff.not billing', raise_exception=True)
 def patient_view(request, pk):
     patient = Patient.objects.get(pk=pk)
     emergency_contact_list = EmergencyContact.objects.filter(patient=pk)
@@ -42,22 +44,24 @@ def patient_view(request, pk):
     return render(request, 'staff/patient_detail.html', context)
 
 
-class CreatePatientView(CreateView):
-    model = Patient
-    fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'religious_restriction',
-              'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'blood_type']
+@login_required
+@permission_required('staff.registration', raise_exception=True)
+def create_patient_form(request):
+    if request.method == "GET":
+        form = CreatePatientForm()
+        return render(request, 'staff/emergencycontact_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = CreatePatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patients/')
 
 
-class CreateEmergencyContact(CreateView):
-    model = EmergencyContact
-    fields = '__all__'
-
-    def get_context_data(self, **kwargs):
-        ctx = super(CreateEmergencyContact, self).get_context_data(**kwargs)
-        ctx['patient'] = self.pk
-        return ctx
-
-
+@login_required
+@permission_required('staff.registration', raise_exception=True)
 def emergency_contact_form(request, pk):
     if request.method == "GET":
         intital = {'patient': pk}
@@ -73,6 +77,8 @@ def emergency_contact_form(request, pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.not billing', raise_exception=True)
 def symptom_form(request, pk):
     if request.method == "GET":
         intital = {'patient': pk}
@@ -88,6 +94,8 @@ def symptom_form(request, pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.doctor', raise_exception=True)
 def medicine_form(request, pk):
     if request.method == "GET":
         intital = {'patient': pk}
@@ -103,6 +111,8 @@ def medicine_form(request, pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.doctor', raise_exception=True)
 def test_form(request, pk):
     if request.method == "GET":
         intital = {'patient': pk}
@@ -118,6 +128,8 @@ def test_form(request, pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.not billing', raise_exception=True)
 def allergy_form(request, pk):
     if request.method == "GET":
         intital = {'patient': pk}
@@ -133,6 +145,8 @@ def allergy_form(request, pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.nurse', raise_exception=True)
 def patient_nurse_form(request, pk):
     if request.method == "GET":
         patient = Patient.objects.get(id=pk)
@@ -147,6 +161,8 @@ def patient_nurse_form(request, pk):
     return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+@login_required
+@permission_required('staff.doctor', raise_exception=True)
 def patient_doctor_form(request, pk):
     if request.method == "GET":
         patient = Patient.objects.get(id=pk)

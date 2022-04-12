@@ -57,7 +57,8 @@ class Patient(models.Model):
                        ('nurse', 'Is a nurse'),
                        ('medical professional', 'Is a nurse or doctor'),
                        ('billing', 'Is at the billing desk'),
-                       ('registration', 'is a registrar desk'))
+                       ('registration', 'is a registrar desk'),
+                       ('not billing', 'is not billing'))
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
@@ -136,6 +137,7 @@ class Medication(models.Model):
                                 choices=medicine_options, null=False)
     dosage = models.FloatField(help_text='Dosage in mg', validators=[MinValueValidator(Decimal('0.01'))])
     cost = models.FloatField(help_text='', validators=[MinValueValidator(Decimal('0.01'))])
+
 
 class EmergencyContact(models.Model):
     first_name = models.CharField(max_length=20)
