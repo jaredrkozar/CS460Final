@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import HttpResponseRedirect
-from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm
+from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm, \
+    PatientDoctorForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -58,9 +59,9 @@ class CreateEmergencyContact(CreateView):
         return ctx
 
 
-def emergency_contact_form(request,pk):
+def emergency_contact_form(request, pk):
     if request.method == "GET":
-        intital = {'patient':pk}
+        intital = {'patient': pk}
         form = EmergencyContactForm(intital)
         return render(request, 'staff/emergencycontact_form.html', {'form': form})
 
@@ -73,9 +74,9 @@ def emergency_contact_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
-def symptom_form(request,pk):
+def symptom_form(request, pk):
     if request.method == "GET":
-        intital = {'patient':pk}
+        intital = {'patient': pk}
         form = SymptomForm(intital)
         return render(request, 'staff/form_form.html', {'form': form})
 
@@ -88,9 +89,9 @@ def symptom_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
-def medicine_form(request,pk):
+def medicine_form(request, pk):
     if request.method == "GET":
-        intital = {'patient':pk}
+        intital = {'patient': pk}
         form = MedicineForm(intital)
         return render(request, 'staff/form_form.html', {'form': form})
 
@@ -103,9 +104,9 @@ def medicine_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
-def test_form(request,pk):
+def test_form(request, pk):
     if request.method == "GET":
-        intital = {'patient':pk}
+        intital = {'patient': pk}
         form = TestForm(intital)
         return render(request, 'staff/form_form.html', {'form': form})
 
@@ -118,9 +119,9 @@ def test_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
-def allergy_form(request,pk):
+def allergy_form(request, pk):
     if request.method == "GET":
-        intital = {'patient':pk}
+        intital = {'patient': pk}
         form = AllergyForm(intital)
         return render(request, 'staff/form_form.html', {'form': form})
 
@@ -133,10 +134,10 @@ def allergy_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
-def patient_nurse_form(request,pk):
+def patient_nurse_form(request, pk):
     if request.method == "GET":
         patient = Patient.objects.get(id=pk)
-        form = PatientNurseForm(instance = patient)
+        form = PatientNurseForm(instance=patient)
         return render(request, 'staff/form_form.html', {'form': form})
 
     else:
@@ -146,3 +147,16 @@ def patient_nurse_form(request,pk):
         form.save()
     return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
+
+def patient_doctor_form(request, pk):
+    if request.method == "GET":
+        patient = Patient.objects.get(id=pk)
+        form = PatientDoctorForm(instance=patient)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    else:
+        patient = Patient.objects.get(id=pk)
+        form = PatientDoctorForm(request.POST, instance=patient)
+    if form.is_valid():
+        form.save()
+    return HttpResponseRedirect('/staff/patient/{}'.format(pk))

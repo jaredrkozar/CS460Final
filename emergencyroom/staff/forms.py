@@ -6,12 +6,20 @@ from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allerg
 class EmergencyContactForm(forms.ModelForm):
     class Meta:
         model = EmergencyContact
-        fields = ('first_name','last_name','patient','phone_number')
+        fields = ('first_name', 'last_name', 'patient', 'phone_number')
+
 
 class PatientNurseForm(forms.ModelForm):
     class Meta:
         model = Patient
-        exclude =  ('doctor_note','discharge_instructions')
+        exclude = ('doctor_note', 'discharge_instructions')
+
+
+class PatientDoctorForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        exclude = ('nurse_note',)
+
 
 class SymptomForm(forms.ModelForm):
     class Meta:
