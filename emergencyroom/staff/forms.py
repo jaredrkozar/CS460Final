@@ -8,6 +8,10 @@ class EmergencyContactForm(forms.ModelForm):
         model = EmergencyContact
         fields = ('first_name','last_name','patient','phone_number')
 
+class PatientNurseForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        exclude =  ('doctor_note','discharge_instructions')
 
 class SymptomForm(forms.ModelForm):
     class Meta:

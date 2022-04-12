@@ -13,7 +13,7 @@ urlpatterns = [
     path('newMed/<int:pk>', views.medicine_form, name='new_med'),
     path('newTest/<int:pk>', views.test_form, name='new_test'),
     path('newAllergy/<int:pk>', views.allergy_form, name='new_allergy'),
-
+    path('patient_nurse/<int:pk>', views.patient_nurse_form, name='patient_nurse_form'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
