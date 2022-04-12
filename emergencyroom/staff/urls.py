@@ -8,6 +8,8 @@ urlpatterns = [
     path('patients/', views.PatientListView.as_view(), name='patients'),
     path('patient/<int:pk>', views.patient_view, name='patient-detail'),
     path('newPatient', views.CreatePatientView.as_view(), name='new_patient'),
+    path('newContact/<int:pk>', views.emergency_contact_form, name='new_contact'),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

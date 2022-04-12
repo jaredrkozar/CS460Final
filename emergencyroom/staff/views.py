@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
-
-from .forms import PatientForm, EmergencyContactFormInlineFormset
+from django.http import HttpResponseRedirect
+from .forms import EmergencyContactForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import inlineformset_factory
+
 
 def index(request):
     context = {}
@@ -43,9 +44,33 @@ def patient_view(request, pk):
     return render(request, 'staff/patient_detail.html', context)
 
 
-
 class CreatePatientView(CreateView):
     model = Patient
     fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
               'blood_pressure_lower', 'religious_restriction', 'doctor_note', 'nurse_note', 'nights_stayed',
-                  'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']
+              'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']
+
+
+class CreateEmergencyContact(CreateView):
+    model = EmergencyContact
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CreateEmergencyContact, self).get_context_data(**kwargs)
+        ctx['patient'] = self.pk
+        return ctx
+
+
+def emergency_contact_form(request,pk):
+    if request.method == "GET":
+        intital = {'patient':pk}
+        form = EmergencyContactForm(intital)
+        return render(request, 'staff/emergencycontact_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = EmergencyContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patient/{}'.format(pk))

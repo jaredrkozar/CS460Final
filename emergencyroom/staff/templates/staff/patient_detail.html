@@ -45,6 +45,7 @@
     {% else %}
     <p>THis patient has no emergency contacts.</p>
      {% endif %}
+<a href={{patient.get_contact_link}}>new contact</a>
 
 <h3>Symptoms: </h3>
     {% if symptom_list %}
