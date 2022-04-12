@@ -57,6 +57,8 @@
     {% else %}
     <p>THis patient has no symptoms.</p>
      {% endif %}
+<a href={{patient.get_symptom_link}}>new symptom</a>
+
 
 <h3>Allergies: </h3>
     {% if allergy_list %}

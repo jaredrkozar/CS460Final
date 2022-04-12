@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect
-from .forms import EmergencyContactForm
+from .forms import EmergencyContactForm, SymptomForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import inlineformset_factory
@@ -76,3 +76,16 @@ def emergency_contact_form(request,pk):
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
 
 
+def symptom_contact_form(request,pk):
+    if request.method == "GET":
+        intital = {'patient':pk}
+        form = SymptomForm(intital)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = SymptomForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patient/{}'.format(pk))

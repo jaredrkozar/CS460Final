@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.urls import reverse
 from django.core.validators import RegexValidator
 
+
 class Patient(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     first_name = models.CharField(max_length=20)
@@ -56,7 +57,7 @@ class Patient(models.Model):
                        ('nurse', 'Is a nurse'),
                        ('medical professional', 'Is a nurse or doctor'),
                        ('billing', 'Is at the billing desk'),
-                       ('registration','is a registrar desk'))
+                       ('registration', 'is a registrar desk'))
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
@@ -65,9 +66,14 @@ class Patient(models.Model):
     def get_contact_link(self):
         return reverse('new_contact', args=[str(self.id)])
 
+    def get_symptom_link(self):
+        return reverse('new_symptom', args=[str(self.id)])
+
+
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
+
 
 class Symptom(models.Model):
     symptom = models.CharField(max_length=20)
@@ -120,8 +126,9 @@ class EmergencyContact(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # Validators should be a list
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # Validators should be a list
 
     def __str__(self):
         """String for representing the Model object."""
