@@ -3,7 +3,7 @@
 
 {% block content %}
   <h1>Patient Details</h1>
-
+    <a href = {{patient.get_nurse_url}} class="editPatientButton">Edit</a>
     <h2>Name</h2>
     <h3>First name {{ patient.first_name }}</h3>
     <h3>Last name {{ patient.last_name }}</h3>
@@ -90,6 +90,6 @@
      {% endif %}
 <a href={{patient.get_test_link}}>new test</a>
 {% if request.user|has_group:'nurses' %}
-<a href = {{patient.get_nurse_url}}>Edit</a>
+
 {% endif %}
 {% endblock %}

@@ -36,5 +36,13 @@ transition: all .2s ease-in;
 .home {
     font-size: 20px;
     position: relative;
+    top: -90px;
     left: 50%;
+}
+
+.editPatientButton {
+    position: relative;
+
+    left: 275px;
+    font-size: 25px;
 }
