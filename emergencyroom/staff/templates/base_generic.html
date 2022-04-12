@@ -18,9 +18,7 @@
             {% block sidebar %}
             <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Home</a></li>
-                {% if request.user|has_group:'medical_professional' %}
                 <li><a href="{% url 'patients' %}">All Patients</a></li>
-                {% endif %}
                  {% if request.user|has_group:'registrar' %}
                 <li><a href="{% url 'new_patient' %}">Add Patient</a></li>
                 {% endif %}
