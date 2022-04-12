@@ -44,36 +44,8 @@ def patient_view(request, pk):
 
 
 
-#@login_required
-#@permission_required("medical professional", raise_exception=True)
 class CreatePatientView(CreateView):
-    form_class = Patient
-    template_name = 'patient_form.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CreatePatientView, self).get_context_data(**kwargs)
-        context['emergency_contact_form'] = EmergencyContactFormInlineFormset()
-
-    def post(self, request, *args, **kargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        emergency_contact_formset = EmergencyContactFormInlineFormset(self.request.POST)
-        if form.is_valid() and emergency_contact_formset.is_valid():
-            return self.form_valid(form, emergency_contact_formset)
-        else:
-            return self.form_invalid(form, emergency_contact_formset)
-
-    def form_invalid(self, form, emergency_contact_formset):
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  emergency_contact_formset=emergency_contact_formset
-                                  )
-        )
-
-    #model = Patient
-    #fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
-     #         'blood_pressure_lower', 'religious_restriction', 'doctor_note', 'nurse_note', 'nights_stayed',
-      #        'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']
-
-
+    model = Patient
+    fields = ['first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'heart_rate', 'blood_pressure_upper',
+              'blood_pressure_lower', 'religious_restriction', 'doctor_note', 'nurse_note', 'nights_stayed',
+                  'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'IV', 'blood_type']
