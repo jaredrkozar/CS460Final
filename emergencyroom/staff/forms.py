@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Patient, EmergencyContact, Symptom, Medication
+from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy
 
 
 class EmergencyContactForm(forms.ModelForm):
@@ -20,3 +20,14 @@ class MedicineForm(forms.ModelForm):
         model = Medication
         fields = '__all__'
 
+
+class TestForm(forms.ModelForm):
+    class Meta:
+        model = Test
+        fields = '__all__'
+
+
+class AllergyForm(forms.ModelForm):
+    class Meta:
+        model = Allergy
+        fields = '__all__'

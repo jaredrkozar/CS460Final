@@ -1,12 +1,9 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import generic
-from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect
-from .forms import EmergencyContactForm, SymptomForm, MedicineForm
+from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineInfo
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.forms import inlineformset_factory
 
 
 def index(request):
@@ -99,6 +96,36 @@ def medicine_form(request,pk):
 
     if request.method == 'POST':
         form = MedicineForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
+
+def test_form(request,pk):
+    if request.method == "GET":
+        intital = {'patient':pk}
+        form = TestForm(intital)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = TestForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
+
+def allergy_form(request,pk):
+    if request.method == "GET":
+        intital = {'patient':pk}
+        form = AllergyForm(intital)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = AllergyForm(request.POST)
         if form.is_valid():
             form.save()
         else:
