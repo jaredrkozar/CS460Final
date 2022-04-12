@@ -47,4 +47,37 @@
     <p>THis patient has no emergency contacts.</p>
      {% endif %}
 
+<h3>Symptoms: </h3>
+    {% if symptom_list %}
+           {% for symptom in symptom_list %}
+           <li>
+             <a >{{symptom.symptom}}</a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient has no symptoms.</p>
+     {% endif %}
+
+<h3>Allergies: </h3>
+    {% if allergy_list %}
+           {% for allergy in allergy_list %}
+           <li>
+             <a >{{allergy.allergy}}</a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient has no allergies.</p>
+     {% endif %}
+
+<h3>Tests: </h3>
+    {% if test_list %}
+           {% for test in test_list %}
+           <li>
+             <a >{{test.get_test_display}} </a>
+           </li>
+     {%  endfor %}
+    {% else %}
+    <p>THis patient has no emergency contacts.</p>
+     {% endif %}
+
 {% endblock %}
