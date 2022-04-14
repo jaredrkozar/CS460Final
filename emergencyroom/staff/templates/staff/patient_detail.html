@@ -35,20 +35,23 @@
 <h3>Blood Type {{ patient.blood_type }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 
-<h3>Medication: </h3>
-    {% if medication_list %}
-           {% for med in medication_list %}
-           <li>
-             <a >{{med.get_medicine_display}}</a>
-               <a >Dosage: {{med.dosage}} mg</a>
 
-           </li>
-     {%  endfor %}
-    {% else %}
-    <p>THis patient is not on any medication..</p>
-    <p>THis patient is not on any medication..</p>
-     {% endif %}
-<a href={{patient.get_med_link}}>new medication</a>
+<div class="mmedication">
+    <h3>Medication: </h3>
+        {% if medication_list %}
+               {% for med in medication_list %}
+               <li>
+                 <a >{{med.get_medicine_display}}</a>
+                   <a >Dosage: {{med.dosage}} mg</a>
+
+               </li>
+         {%  endfor %}
+        {% else %}
+        <p>THis patient is not on any medication..</p>
+        <p>THis patient is not on any medication..</p>
+         {% endif %}
+    <a href={{patient.get_med_link}}>new medication</a>
+</div>
 
      {% endif %}
 <h3>Emergency Contacts: </h3>

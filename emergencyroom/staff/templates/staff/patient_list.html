@@ -1,7 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>patient List</h1>
+  <h1>Patient List</h1>
+  <div class=patientList">
   {% if patient_list %}
   <ul>
     {% for patient in patient_list %}
@@ -13,5 +14,5 @@
   {% else %}
     <p>There are no patients.</p>
   {% endif %}
-
+  </div>
 {% endblock %}
