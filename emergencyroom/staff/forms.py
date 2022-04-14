@@ -43,3 +43,11 @@ class AllergyForm(forms.ModelForm):
     class Meta:
         model = Allergy
         fields = '__all__'
+
+
+class CreatePatientForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ('first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'religious_restriction',
+                  'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'blood_type')
+

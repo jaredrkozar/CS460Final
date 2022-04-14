@@ -39,6 +39,7 @@ permission = Permission.objects.get(codename='doctor', content_type=content_type
 permission2 = Permission.objects.get(codename='nurse', content_type=content_type)
 permission3 = Permission.objects.get(codename='billing', content_type=content_type)
 permission4 = Permission.objects.get(codename='medical professional', content_type=content_type)
+permission5 = Permission.objects.get(codename='not billing', content_type=content_type)
 #permission5 = Permission.objects.get(codename='registration', content_type=content_type)
 
 
@@ -49,7 +50,10 @@ group3.permissions.add(permission3)
 group.permissions.add(permission4)
 group2.permissions.add(permission4)
 group4.permissions.add(permission4)
-#group5.permissions.add(permission5)
+#group5.permissions.add(permission5)\
+group.permissions.add(permission5)
+group2.permissions.add(permission5)
+group5.permissions.add(permission5)
 
 #doctor1 = User.objects.create_user('doctor1', 'email@email.com', 'pw')
 #doctor2 = User.objects.create_user('doctor2', 'email@email.com', 'pw')

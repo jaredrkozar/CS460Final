@@ -57,7 +57,8 @@ class Patient(models.Model):
                        ('nurse', 'Is a nurse'),
                        ('medical professional', 'Is a nurse or doctor'),
                        ('billing', 'Is at the billing desk'),
-                       ('registration', 'is a registrar desk'))
+                       ('registration', 'is a registrar desk'),
+                       ('not billing', 'is not billing'))
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
