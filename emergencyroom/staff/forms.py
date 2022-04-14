@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import inlineformset_factory
 from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy
 
 
@@ -12,13 +11,13 @@ class EmergencyContactForm(forms.ModelForm):
 class PatientNurseForm(forms.ModelForm):
     class Meta:
         model = Patient
-        exclude = ('doctor_note', 'discharge_instructions')
+        exclude = ('doctor_note', 'discharge_instructions', 'bill_due_date')
 
 
 class PatientDoctorForm(forms.ModelForm):
     class Meta:
         model = Patient
-        exclude = ('nurse_note',)
+        exclude = ('nurse_note', 'bill_due_date')
 
 
 class SymptomForm(forms.ModelForm):
@@ -50,4 +49,10 @@ class CreatePatientForm(forms.ModelForm):
         model = Patient
         fields = ('first_name', 'last_name', 'date_of_birth', 'height', 'weight', 'religious_restriction',
                   'drug_usage', 'discharge_instructions', 'gender', 'race', 'sexual_active', 'blood_type')
+
+
+class SetBillDateForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ('bill_due_date',)
 

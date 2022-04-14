@@ -15,6 +15,8 @@ urlpatterns = [
     path('newAllergy/<int:pk>', views.allergy_form, name='new_allergy'),
     path('patient_nurse/<int:pk>', views.patient_nurse_form, name='patient_nurse_form'),
     path('patient_doctor/<int:pk>', views.patient_doctor_form, name='patient_doctor_form'),
+    path('patient_bill/<int:pk>', views.bill_form, name='bill_form'),
+    path('patient_bill_display/<int:pk>', views.print_bill, name='print_bill'),
 
 ]
 

@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+{% load auth_extras %}
+
+{% block content %}
+    {% if test_list %}
+
+<h3>Nights Stayed: ${{patient.nights_stayed}}</h3>
+<h3>Cost Per Night: $150</h3>
+<h3>Total cost of overnight: {{night_cost}}</h3>
+
+<h3>Tests: </h3>
+           {% for test in test_list %}
+           <li>
+             <a >{{test.get_test_display}}: ${{test.cost}} </a>
+           </li>
+     {%  endfor %}
+     {% endif %}
+    <h4>Total Test Cost: ${{total_test_cost}}</h4>
+
+<h3>Medicine: </h3>
+           {% for med in medication_list %}
+           <li>
+             <a >{{med.get_medicine_display}}: ${{med.cost}} </a>
+           </li>
+     {%  endfor %}
+    <h4>Total Medicine Cost: ${{total_med_cost}}</h4>
+<h1>Total: ${{total_cost}}</h1>
+<h1>Due Date: {{patient.bill_due_date}}</h1>
+
+
+
+{% endblock %}

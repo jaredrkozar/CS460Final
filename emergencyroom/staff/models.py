@@ -51,7 +51,7 @@ class Patient(models.Model):
                                   )
 
     # doctor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-
+    bill_due_date = models.DateField(null=True, blank=True)
     class Meta:
         permissions = (('doctor', 'Is a doctor'),
                        ('nurse', 'Is a nurse'),
@@ -84,6 +84,12 @@ class Patient(models.Model):
 
     def get_doctor_url(self):
         return reverse('patient_doctor_form', args=[str(self.id)])
+
+    def get_bill_form_url(self):
+        return reverse('bill_form', args=[str(self.id)])
+
+    def get_bill_display_url(self):
+        return reverse('print_bill', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
@@ -169,13 +175,6 @@ class Diagnose(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
 
 
-class CovidVaccineInfo(models.Model):
-    first_shot = models.OneToOneField('CovidVaccineShot', on_delete=models.CASCADE, related_name='shot1')
-    second_shot = models.OneToOneField('CovidVaccineShot', on_delete=models.CASCADE, related_name='shot2')
-    booster_shot = models.OneToOneField('CovidVaccineShot', on_delete=models.CASCADE, related_name='booster')
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-
-
 class CovidVaccineShot(models.Model):
     brand_options = (
         ('P', 'Pfizer'),
@@ -188,11 +187,9 @@ class CovidVaccineShot(models.Model):
     brand = models.CharField(max_length=1,
                              choices=brand_options)
     date_received = models.DateField()
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+
 
     def __str__(self):
         return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand, date=self.date_received)
 
-
-class Bill(models.Model):
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    date_due = models.DateField()

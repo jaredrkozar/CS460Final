@@ -3,11 +3,14 @@
 
 {% block content %}
   <h1>Patient Details</h1>
+{% if request.user|has_group:'nurses' %}
     <a href = {{patient.get_nurse_url}} class="editPatientButton">Edit</a>
+{% endif %}
     <h2>Name</h2>
     <h3>First name {{ patient.first_name }}</h3>
     <h3>Last name {{ patient.last_name }}</h3>
      <h3>Date of Birth {{ patient.date_of_birth }}</h3>
+{% if not request.user|has_group:'billing' %}
 <h3>Height {{ patient.height }}</h3>
 <h3>Weight {{ patient.weight }}</h3>
 {% if request.user|has_group:'medical_professional' %}
@@ -103,13 +106,21 @@
     <p>THis patient has no emergency contacts.</p>
      {% endif %}
 {% endif %}
-
+{% if request.user|has_group:'doctors' %}
 <a href={{patient.get_test_link}}>new test</a>
 {% if request.user|has_group:'nurses' %}
+{% endif %}
 
 {% endif %}
 {% if request.user|has_group:'doctors' %}
 <a href = {{patient.get_doctor_url}}>Edit</a>
+{% endif %}
+{% endif %}
+{% if request.user|has_group:'billing' %}
+<a href = {{patient.get_bill_form_url}}>set bill date</a>
+<h3>Bill Due {{ patient.bill_due_date }}</h3>
+<a href = {{patient.get_bill_display_url}}>display bill</a>
+
 {% endif %}
 
 {% endblock %}
