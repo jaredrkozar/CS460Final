@@ -1,5 +1,5 @@
 from django import forms
-from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy
+from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy, CovidVaccineShot
 
 
 class EmergencyContactForm(forms.ModelForm):
@@ -55,4 +55,10 @@ class SetBillDateForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ('bill_due_date',)
+
+
+class CovidShotForm(forms.ModelForm):
+    class Meta:
+        model = CovidVaccineShot
+        fields = '__all__'
 

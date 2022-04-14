@@ -52,6 +52,7 @@ class Patient(models.Model):
 
     # doctor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     bill_due_date = models.DateField(null=True, blank=True)
+
     class Meta:
         permissions = (('doctor', 'Is a doctor'),
                        ('nurse', 'Is a nurse'),
@@ -90,6 +91,9 @@ class Patient(models.Model):
 
     def get_bill_display_url(self):
         return reverse('print_bill', args=[str(self.id)])
+
+    def get_covid_shot_url(self):
+        return reverse('create_covid_shot_form', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
@@ -144,6 +148,7 @@ class Medication(models.Model):
     dosage = models.FloatField(help_text='Dosage in mg', validators=[MinValueValidator(Decimal('0.01'))])
     cost = models.FloatField(help_text='', validators=[MinValueValidator(Decimal('0.01'))])
 
+
 class EmergencyContact(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
@@ -189,7 +194,5 @@ class CovidVaccineShot(models.Model):
     date_received = models.DateField()
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
 
-
     def __str__(self):
         return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand, date=self.date_received)
-

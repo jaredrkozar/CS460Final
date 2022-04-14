@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import HttpResponseRedirect
 from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm, \
-    PatientDoctorForm, CreatePatientForm, SetBillDateForm
+    PatientDoctorForm, CreatePatientForm, SetBillDateForm, CovidShotForm
 from .models import Patient, EmergencyContact, Symptom, Test, Diagnose, Medication, Allergy, CovidVaccineShot
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -215,3 +215,19 @@ def print_bill(request, pk):
                }
 
     return render(request, 'staff/display_bill.html', context)
+
+
+@permission_required('staff.not billing', raise_exception=True)
+def create_covid_shot_form(request, pk):
+    if request.method == "GET":
+        intital = {'patient': pk}
+        form = CovidShotForm(intital)
+        return render(request, 'staff/form_form.html', {'form': form})
+
+    if request.method == 'POST':
+        form = CovidShotForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print('invalid')
+        return HttpResponseRedirect('/staff/patient/{}'.format(pk))

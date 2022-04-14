@@ -31,6 +31,22 @@
 <h3>Gender {{ patient.get_gender_display }}</h3>
 <h3>Race {{ patient.race }}</h3>
 <h3>Sexually Activity {{ patient.sexual_active }}</h3>
+    <h3>Covid Vaccines: </h3>
+        {% if covid_vaccine_list %}
+               {% for vaccine in covid_vaccine_list %}
+               <li>
+                 <a >Brand: {{vaccine.get_brand_display}}</a>
+                   <a >Date Recieved: {{vaccine.date_received}}</a>
+
+
+               </li>
+         {%  endfor %}
+        {% else %}
+        <p>This patient is not vaccinated.</p>
+         {% endif %}
+<a href={{patient.get_covid_shot_url}}>new vaccine</a>
+
+
 {% if request.user|has_group:'medical_professional' %}
 
 <h3>IV {{ patient.IV }}</h3>
