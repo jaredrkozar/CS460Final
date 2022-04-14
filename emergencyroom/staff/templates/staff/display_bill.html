@@ -3,29 +3,35 @@
 
 {% block content %}
     {% if test_list %}
+<h3>Bill for: {{patient.first_name}} {{patient.last_name}}</h3>
+<h3>Due Date: {{patient.bill_due_date}}</h3>
+<br>
+<h4>Number of Nights Stayed: {{patient.nights_stayed}}</h4>
+<h4>Cost Per Night: $150</h4>
 
-<h3>Nights Stayed: ${{patient.nights_stayed}}</h3>
-<h3>Cost Per Night: $150</h3>
-<h3>Total cost of overnight: {{night_cost}}</h3>
-
-<h3>Tests: </h3>
+<br>
+<h4>Tests: </h4>
            {% for test in test_list %}
            <li>
              <a >{{test.get_test_display}}: ${{test.cost}} </a>
            </li>
      {%  endfor %}
      {% endif %}
-    <h4>Total Test Cost: ${{total_test_cost}}</h4>
 
-<h3>Medicine: </h3>
+<br>
+
+<h4>Medicine: </h4>
            {% for med in medication_list %}
            <li>
              <a >{{med.get_medicine_display}}: ${{med.cost}} </a>
            </li>
      {%  endfor %}
-    <h4>Total Medicine Cost: ${{total_med_cost}}</h4>
-<h1>Total: ${{total_cost}}</h1>
-<h1>Due Date: {{patient.bill_due_date}}</h1>
+
+<br>
+<h4>Total cost of overnight stay: ${{night_cost}}</h4>
+<h4>Total Test Cost: ${{total_test_cost}}</h4>
+<h4>Total Medicine Cost: ${{total_med_cost}}</h4>
+<h1>Total Cost: ${{total_cost}}</h1>
 
 
 

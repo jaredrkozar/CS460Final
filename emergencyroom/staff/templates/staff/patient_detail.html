@@ -133,9 +133,9 @@
 {% endif %}
 {% endif %}
 {% if request.user|has_group:'billing' %}
-<a href = {{patient.get_bill_form_url}}>set bill date</a>
+<a href = {{patient.get_bill_form_url}}>Set Bill Date</a>
 <h3>Bill Due {{ patient.bill_due_date }}</h3>
-<a href = {{patient.get_bill_display_url}}>display bill</a>
+<a href = {{patient.get_bill_display_url}}>View Bill</a>
 
 {% endif %}
 
