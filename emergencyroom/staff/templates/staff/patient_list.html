@@ -1,10 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <h1>Patient List</h1>
-  <div class=patientList" style="margin: 0 auto">
+  <div class=patientList">
+  <h1 class="title">Patient List</h1>
   {% if patient_list %}
     {% for patient in patient_list %}
 

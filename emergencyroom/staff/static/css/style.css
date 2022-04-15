@@ -37,11 +37,12 @@
 
 #home {
     font-size: 50px;
-    position: relative;
+    position: absolute;
     left: 50px;
     top: 30px;
     color: white;
-    width: 1000px;
+    width: 500px;
+   right: 90px;
     text-align: center;
 }
 
@@ -67,8 +68,18 @@ input[type=number], [type=text], textarea {
 table {
     table-layout: fixed;
     word-wrap: break-word;
+
+        position: relative;
+    bottom: 200px;
+    left: 100px;
 }
 
 body {
     margin: 3vw;
+}
+
+.title {
+            position: absolute;
+    bottom: 330px;
+    left: 100px;
 }
