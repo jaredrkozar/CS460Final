@@ -8,6 +8,8 @@
     {% for patient in patient_list %}
       <li>
         <a href={{patient.get_absolute_url}}>{{ patient.first_name }}{{" "}}{{ patient.last_name }}</a>
+            <a href={{patient.get_delete_url}}>Delete</a>
+
       </li>
     {% endfor %}
   </ul>

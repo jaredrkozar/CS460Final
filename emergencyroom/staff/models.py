@@ -99,16 +99,24 @@ class Patient(models.Model):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
+    def get_delete_url(self):
+        return reverse('patient-delete', args=[str(self.id)])
+
 
 class Symptom(models.Model):
     symptom = models.CharField(max_length=20)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+
+    def get_delete_url(self):
+        return reverse('symptom-delete', args=[str(self.id)])
 
 
 class Allergy(models.Model):
     allergy = models.CharField(max_length=20)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
 
+    def get_delete_url(self):
+        return reverse('allergy-delete', args=[str(self.id)])
 
 class Test(models.Model):
     test_options = (
@@ -130,6 +138,8 @@ class Test(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     cost = models.FloatField(help_text='', validators=[MinValueValidator(Decimal('0.01'))])
 
+    def get_delete_url(self):
+        return reverse('test-delete', args=[str(self.id)])
 
 class Medication(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
@@ -148,6 +158,9 @@ class Medication(models.Model):
     dosage = models.FloatField(help_text='Dosage in mg', validators=[MinValueValidator(Decimal('0.01'))])
     cost = models.FloatField(help_text='', validators=[MinValueValidator(Decimal('0.01'))])
 
+    def get_delete_url(self):
+        return reverse('medicine-delete', args=[str(self.id)])
+
 
 class EmergencyContact(models.Model):
     first_name = models.CharField(max_length=20)
@@ -161,8 +174,8 @@ class EmergencyContact(models.Model):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
-    def get_absolute_url(self):
-        return reverse('patient-detail', args=[str(self.patient.id)])
+    def get_delete_url(self):
+        return reverse('contact-delete', args=[str(self.id)])
 
 
 class Diagnose(models.Model):
@@ -178,6 +191,9 @@ class Diagnose(models.Model):
     diagnose = models.CharField(max_length=1,
                                 choices=diagnose_options)
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+
+    def get_delete_url(self):
+        return reverse('diagnose-delete', args=[str(self.id)])
 
 
 class CovidVaccineShot(models.Model):
@@ -196,3 +212,6 @@ class CovidVaccineShot(models.Model):
 
     def __str__(self):
         return 'Brand: {brand} \n Date Recieved: {date}'.format(brand=self.brand, date=self.date_received)
+
+    def get_delete_url(self):
+        return reverse('covid_shot-delete', args=[str(self.id)])

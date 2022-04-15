@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpResponseRedirect
 from .forms import EmergencyContactForm, SymptomForm, MedicineForm, TestForm, AllergyForm, PatientNurseForm, \
@@ -231,3 +232,44 @@ def create_covid_shot_form(request, pk):
         else:
             print('invalid')
         return HttpResponseRedirect('/staff/patient/{}'.format(pk))
+
+
+def contact_delete(request, pk):
+    contact = EmergencyContact.objects.get(id=pk)
+    patient_id = contact.patient.pk
+    contact.delete()
+    return HttpResponseRedirect('/staff/patient/{}'.format(patient_id))
+
+
+def vaccine_delete(request, pk):
+    model = CovidVaccineShot.objects.get(id=pk)
+    patient_id = model.patient.pk
+    model.delete()
+    return HttpResponseRedirect('/staff/patient/{}'.format(patient_id))
+
+
+def allergy_delete(request, pk):
+    model = Allergy.objects.get(id=pk)
+    patient_id = model.patient.pk
+    model.delete()
+    return HttpResponseRedirect('/staff/patient/{}'.format(patient_id))
+
+
+def symptom_delete(request, pk):
+    model = Symptom.objects.get(id=pk)
+    patient_id = model.patient.pk
+    model.delete()
+    return HttpResponseRedirect('/staff/patient/{}'.format(patient_id))
+
+
+def test_delete(request, pk):
+    model = Test.objects.get(id=pk)
+    patient_id = model.patient.pk
+    model.delete()
+    return HttpResponseRedirect('/staff/patient/{}'.format(patient_id))
+
+
+def patient_delete(request, pk):
+    model = Patient.objects.get(id=pk)
+    model.delete()
+    return HttpResponseRedirect('/staff/patients/')

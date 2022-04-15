@@ -18,6 +18,12 @@ urlpatterns = [
     path('patient_bill/<int:pk>', views.bill_form, name='bill_form'),
     path('patient_bill_display/<int:pk>', views.print_bill, name='print_bill'),
     path('covid_shot/<int:pk>', views.create_covid_shot_form, name='create_covid_shot_form'),
+    path('contact/<int:pk>/delete/', views.contact_delete, name='contact-delete'),
+    path('covid_shot/<int:pk>/delete/', views.vaccine_delete, name='covid_shot-delete'),
+    path('allergy/<int:pk>/delete/', views.allergy_delete, name='allergy-delete'),
+    path('symptom/<int:pk>/delete/', views.symptom_delete, name='symptom-delete'),
+    path('test/<int:pk>/delete/', views.test_delete, name='test-delete'),
+    path('patient/<int:pk>/delete/', views.patient_delete, name='patient-delete'),
 
 ]
 
