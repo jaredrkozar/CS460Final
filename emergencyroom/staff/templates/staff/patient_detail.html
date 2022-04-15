@@ -7,30 +7,30 @@
 <a href={{patient.get_nurse_url}} class="editPatientButton">Edit</a>
 {% endif %}
 <h2>Name</h2>
-<h3>First name {{ patient.first_name }}</h3>
-<h3>Last name {{ patient.last_name }}</h3>
-<h3>Date of Birth {{ patient.date_of_birth }}</h3>
+<h3>First name: {{ patient.first_name }}</h3>
+<h3>Last name: {{ patient.last_name }}</h3>
+<h3>Date of Birth: {{ patient.date_of_birth }}</h3>
 {% if not request.user|has_group:'billing' %}
-<h3>Height {{ patient.height }}</h3>
-<h3>Weight {{ patient.weight }}</h3>
+<h3>Height: {{ patient.height }}</h3>
+<h3>Weight: {{ patient.weight }}</h3>
 {% if request.user|has_group:'medical_professional' %}
-<h3>Heart Rate {{ patient.heart_rate }}</h3>
-<h3>Blood Pressure (Upper) {{ patient.blood_pressure_upper }}</h3>
-<h3>Blood Pressure (Lower) {{ patient.blood_pressure_lower }}</h3>
+<h3>Heart Rate: {{ patient.heart_rate }}</h3>
+<h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }}</h3>
+<h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }}</h3>
 {%endif%}
-<h3>Religious Restrictions {{ patient.religious_restriction }}</h3>
+<h3>Religious Restrictions: {{ patient.religious_restriction }}</h3>
 {% if request.user|has_group:'medical_professional' %}
-<h3>Doctor Notes {{ patient.doctor_note }}</h3>
-<h3>Nurse Notes {{ patient.nurse_note }}</h3>
+<h3>Doctor Notes: {{ patient.doctor_note }}</h3>
+<h3>Nurse Notes: {{ patient.nurse_note }}</h3>
 {%endif%}
-<h3>Number of Nights Stayed {{ patient.nights_stayed }}</h3>
-<h3>Drug Usage {{ patient.drug_usage }}</h3>
+<h3>Number of Nights Stayed: {{ patient.nights_stayed }}</h3>
+<h3>Drug Usage: {{ patient.drug_usage }}</h3>
 {% if request.user|has_group:'medical_professional' %}
-<h3>Discharge Instructions {{ patient.discharge_instructions }}</h3>
+<h3>Discharge Instructions: {{ patient.discharge_instructions }}</h3>
 {%endif%}
-<h3>Gender {{ patient.get_gender_display }}</h3>
-<h3>Race {{ patient.race }}</h3>
-<h3>Sexually Activity {{ patient.sexual_active }}</h3>
+<h3>Gender: {{ patient.get_gender_display }}</h3>
+<h3>Race: {{ patient.race }}</h3>
+<h3>Sexually Active: {{ patient.sexual_active }}</h3>
 <h3>Covid Vaccines: </h3>
 {% if covid_vaccine_list %}
 {% for vaccine in covid_vaccine_list %}
@@ -38,21 +38,19 @@
     <a>Brand: {{vaccine.get_brand_display}}</a>
     <a>Date Recieved: {{vaccine.date_received}}</a>
     <a href={{vaccine.get_delete_url}}>Delete</a>
-
-
 </li>
 {%  endfor %}
 {% else %}
 <p>This patient is not vaccinated.</p>
 {% endif %}
 <a href={{patient.get_covid_shot_url}}>new vaccine</a>
-
+<br>
 
 {% if request.user|has_group:'medical_professional' %}
 
-<h3>IV {{ patient.IV }}</h3>
+<h3>IV: {{ patient.IV }}</h3>
 {% endif %}
-<h3>Blood Type {{ patient.blood_type }}</h3>
+<h3>Blood Type: {{ patient.get_blood_type_display }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 
 
@@ -63,12 +61,10 @@
     <li>
         <a>{{med.get_medicine_display}}</a>
         <a>Dosage: {{med.dosage}} mg</a>
-
     </li>
     {% endfor %}
     {% else %}
-    <p>THis patient is not on any medication..</p>
-    <p>THis patient is not on any medication..</p>
+    <p>This patient is not on any medication.</p>
     {% endif %}
     <a href={{patient.get_med_link}}>new medication</a>
 </div>
@@ -83,7 +79,7 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>THis patient has no emergency contacts.</p>
+<p>This patient has no emergency contacts.</p>
 {% endif %}
 <a href={{patient.get_contact_link}}>new contact</a>
 <h3>Symptoms: </h3>
@@ -96,7 +92,7 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>THis patient has no symptoms.</p>
+<p>This patient has no symptoms.</p>
 {% endif %}
 <a href={{patient.get_symptom_link}}>new symptom</a>
 
@@ -125,7 +121,7 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>THis patient has no emergency contacts.</p>
+<p>This patient has no emergency contacts.</p>
 {% endif %}
 {% endif %}
 {% if request.user|has_group:'doctors' %}

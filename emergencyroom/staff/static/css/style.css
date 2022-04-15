@@ -63,3 +63,12 @@ input[type=number], [type=text], textarea {
     border-radius: 10px;
     border-color: #c0c0c0;
 }
+
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+body {
+    margin: 3vw;
+}
