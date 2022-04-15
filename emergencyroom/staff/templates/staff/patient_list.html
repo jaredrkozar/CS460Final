@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <h1>Patient List</h1>
+  <div class=patientList" style="margin: 0 auto">
+  {% if patient_list %}
+    {% for patient in patient_list %}
+
+     <table class="table" style="width: 30%">
+        <tr>
+          <td> <a href={{patient.get_absolute_url}}>{{ patient.first_name }}{{" "}}{{ patient.last_name }} </a> </td>
+          <td> <a href={{patient.get_delete_url}}> Delete</a> </td>
+        </tr>
+      </table>
+    {% endfor %}
+  {% else %}
+    <p>There are no patients.</p>
+  {% endif %}
+  </div>
+{% endblock %}

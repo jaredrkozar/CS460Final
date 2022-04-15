@@ -1,0 +1,143 @@
+{% extends "base_generic.html" %}
+{% load auth_extras %}
+
+{% block content %}
+<h1>Patient Details</h1>
+{% if request.user|has_group:'nurses' %}
+<a href={{patient.get_nurse_url}} class="editPatientButton">Edit</a>
+{% endif %}
+<h2>Name</h2>
+<h3>First name: {{ patient.first_name }}</h3>
+<h3>Last name: {{ patient.last_name }}</h3>
+<h3>Date of Birth: {{ patient.date_of_birth }}</h3>
+{% if not request.user|has_group:'billing' %}
+<h3>Height: {{ patient.height }}</h3>
+<h3>Weight: {{ patient.weight }}</h3>
+{% if request.user|has_group:'medical_professional' %}
+<h3>Heart Rate: {{ patient.heart_rate }}</h3>
+<h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }}</h3>
+<h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }}</h3>
+{%endif%}
+<h3>Religious Restrictions: {{ patient.religious_restriction }}</h3>
+{% if request.user|has_group:'medical_professional' %}
+<h3>Doctor Notes: {{ patient.doctor_note }}</h3>
+<h3>Nurse Notes: {{ patient.nurse_note }}</h3>
+{%endif%}
+<h3>Number of Nights Stayed: {{ patient.nights_stayed }}</h3>
+<h3>Drug Usage: {{ patient.drug_usage }}</h3>
+{% if request.user|has_group:'medical_professional' %}
+<h3>Discharge Instructions: {{ patient.discharge_instructions }}</h3>
+{%endif%}
+<h3>Gender: {{ patient.get_gender_display }}</h3>
+<h3>Race: {{ patient.race }}</h3>
+<h3>Sexually Active: {{ patient.sexual_active }}</h3>
+<h3>Covid Vaccines: </h3>
+{% if covid_vaccine_list %}
+{% for vaccine in covid_vaccine_list %}
+<li>
+    <a>Brand: {{vaccine.get_brand_display}}</a>
+    <a>Date Recieved: {{vaccine.date_received}}</a>
+    <a href={{vaccine.get_delete_url}}>Delete</a>
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient is not vaccinated.</p>
+{% endif %}
+<a href={{patient.get_covid_shot_url}}>new vaccine</a>
+<br>
+
+{% if request.user|has_group:'medical_professional' %}
+
+<h3>IV: {{ patient.IV }}</h3>
+{% endif %}
+<h3>Blood Type: {{ patient.get_blood_type_display }}</h3>
+{% if request.user|has_group:'medical_professional' %}
+
+
+<div class="medication">
+    <h3>Medication: </h3>
+    {% if medication_list %}
+    {% for med in medication_list %}
+    <li>
+        <a>{{med.get_medicine_display}}</a>
+        <a>Dosage: {{med.dosage}} mg</a>
+    </li>
+    {% endfor %}
+    {% else %}
+    <p>This patient is not on any medication.</p>
+    {% endif %}
+    <a href={{patient.get_med_link}}>new medication</a>
+</div>
+
+{% endif %}
+<h3>Emergency Contacts: </h3>
+{% if emergency_contact_list %}
+{% for contact in emergency_contact_list %}
+<li>
+    <a>Name: {{contact.first_name}} {{contact.last_name}} Phone number: {{contact.phone_number}}</a>
+    <a href={{contact.get_delete_url}}>Delete</a>
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient has no emergency contacts.</p>
+{% endif %}
+<a href={{patient.get_contact_link}}>new contact</a>
+<h3>Symptoms: </h3>
+{% if symptom_list %}
+{% for symptom in symptom_list %}
+<li>
+    <a>{{symptom.symptom}}</a>
+    <a href={{symptom.get_delete_url}}>Delete</a>
+
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient has no symptoms.</p>
+{% endif %}
+<a href={{patient.get_symptom_link}}>new symptom</a>
+
+
+<h3>Allergies: </h3>
+{% if allergy_list %}
+{% for allergy in allergy_list %}
+<li>
+    <a>{{allergy.allergy}}</a>
+    <a href={{allergy.get_delete_url}}>Delete</a>
+
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient has no allergies.</p>
+{% endif %}
+<a href={{patient.get_allergy_link}}>new allergy</a>
+
+<h3>Tests: </h3>
+{% if test_list %}
+{% for test in test_list %}
+<li>
+    <a>{{test.get_test_display}} </a>
+    <a href={{test.get_delete_url}}>Delete</a>
+
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient has no emergency contacts.</p>
+{% endif %}
+{% endif %}
+{% if request.user|has_group:'doctors' %}
+<a href={{patient.get_test_link}}>new test</a>
+{% if request.user|has_group:'nurses' %}
+{% endif %}
+
+{% endif %}
+{% if request.user|has_group:'doctors' %}
+<a href={{patient.get_doctor_url}}>Edit</a>
+{% endif %}
+{% if request.user|has_group:'billing' %}
+<a href={{patient.get_bill_form_url}}>Set Bill Date</a>
+<h3>Bill Due {{ patient.bill_due_date }}</h3>
+<a href={{patient.get_bill_display_url}}>View Bill</a>
+
+{% endif %}
+
+{% endblock %}
