@@ -13,8 +13,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
-        {% block sidebar %}
+ {% block sidebar %}
         <div class="sidebar-nav">
             <a href="{% url 'index' %}">Home</a>
             {% if user.is_authenticated %}
@@ -52,7 +51,6 @@
             {% endif %}
             {% endblock %}
         </div>
-    </div>
 </div>
 </body>
 </html>

@@ -2,7 +2,8 @@
 {% load auth_extras %}
 
 {% block content %}
-<h1>Patient Details</h1>
+<div class="patientDetails">
+<h1>Patient Details for {{ patient.first_name }}  {{ patient.last_name }}</h1>
 {% if request.user|has_group:'nurses' %}
 <a href={{patient.get_nurse_url}} class="editPatientButton">Edit</a>
 {% endif %}
@@ -70,6 +71,9 @@
 </div>
 
 {% endif %}
+
+
+    {% if request.user|has_group:'registrar' %}
 <h3>Emergency Contacts: </h3>
 {% if emergency_contact_list %}
 {% for contact in emergency_contact_list %}
@@ -82,6 +86,8 @@
 <p>This patient has no emergency contacts.</p>
 {% endif %}
 <a href={{patient.get_contact_link}}>new contact</a>
+{% endif %}
+
 <h3>Symptoms: </h3>
 {% if symptom_list %}
 {% for symptom in symptom_list %}
@@ -139,5 +145,5 @@
 <a href={{patient.get_bill_display_url}}>View Bill</a>
 
 {% endif %}
-
+</div>
 {% endblock %}

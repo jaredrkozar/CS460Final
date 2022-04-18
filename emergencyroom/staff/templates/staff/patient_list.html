@@ -3,7 +3,7 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <h1>Patient List</h1>
+  <h1 id="pageTitle">Patient Details</h1>
   <div class=patientList" style="margin: 0 auto">
   {% if patient_list %}
     {% for patient in patient_list %}
