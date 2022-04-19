@@ -2,7 +2,7 @@
 {% load auth_extras %}
 
 {% block content %}
-<h1>Patient Details</h1>
+<h1>Patient Details for {{ patient.first_name }}{{" "}}{{ patient.last_name }}</h1>
 {% if request.user|has_group:'nurses' %}
 <a href={{patient.get_nurse_url}} class="editPatientButton">Edit</a>
 {% endif %}

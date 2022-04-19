@@ -1,3 +1,8 @@
+body, html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .sidebar-nav > *:not(#currentUser) {
     font-size: 40px;
     position: relative;
@@ -5,9 +10,6 @@
     -o-transition:all .2s ease-in;
 -   webkit-transition:all .2s ease-in;
     transition: all .2s ease-in;
-    display: grid;
-    grid-template-columns: 6;
-    grid-gap: 10%;
     padding: 5px;
     height: 70px;
     color: var(--textcolor);
@@ -19,12 +21,26 @@
 
 .sidebar-nav:nth-child(3) {
     color: inherit;
+    width: 1400px;
   text-decoration: none;
 }
 
 .sidebar-nav > *:not(#currentUser):hover {
     background-color: var(--bordercolor);
 }
+
+.sidebar-nav > * {
+    width: 250px;
+    margin-right: 34px;
+    display: block;
+}
+
+.sidebar-nav {
+    width: 250px;
+    margin-right: 34px;
+    position: fixed;
+}
+
 
 #logbutton {
    --bordercolor: #ff7272;
@@ -33,29 +49,40 @@
 .sidebar-nav > a {
     --bordercolor: #1fc3ff;
     text-decoration: none;
+
+      box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 #home {
     font-size: 50px;
-    position: absolute;
+    position: relative;
     left: 50px;
     top: 30px;
     color: white;
-    width: 500px;
-   right: 90px;
+    margin-right: 100px;
+    width: 400px;
     text-align: center;
 }
 
 .editPatientButton {
     position: relative;
-    left: 275px;
-    bottom: 50px;
-    font-size: 26px;
+    font-size: 25px;
 }
 
-.content {
+.patientDetails {
+    position: absolute;
+    left: 400px;
+}
+
+.content:not(.emergencyform) {
     position: relative;
-    left: 175px;
+    left: 300px;
+}
+
+.emergencyform {
+    position: relative;
 }
 
 input[type=number], [type=text], textarea {
@@ -65,21 +92,31 @@ input[type=number], [type=text], textarea {
     border-color: #c0c0c0;
 }
 
+input[type=submit] {
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: #c0c0c0;
+    transition: 0.3s;
+}
+
+input[type=submit]:hover {
+    background-color: #c0c0c0;
+    color: white;
+  }
+
 table {
     table-layout: fixed;
     word-wrap: break-word;
-
-        position: relative;
-    bottom: 200px;
-    left: 100px;
+    position: relative;
 }
 
-body {
-    margin: 3vw;
+.loginpage {
+    position: relative;
 }
 
-.title {
-            position: absolute;
-    bottom: 330px;
-    left: 100px;
+.patientList {
+    position: absolute;
+    top: 130px;
+    left: 30px;
 }
