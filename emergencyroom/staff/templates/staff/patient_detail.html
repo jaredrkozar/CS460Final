@@ -61,6 +61,8 @@
     <li>
         <a>{{med.get_medicine_display}}</a>
         <a>Dosage: {{med.dosage}} mg</a>
+        <a href={{med.get_delete_url}}>Delete</a>
+
     </li>
     {% endfor %}
     {% else %}
@@ -117,15 +119,32 @@
 <li>
     <a>{{test.get_test_display}} </a>
     <a href={{test.get_delete_url}}>Delete</a>
-
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no emergency contacts.</p>
+<p>This patient has no tests.</p>
 {% endif %}
 {% endif %}
 {% if request.user|has_group:'doctors' %}
 <a href={{patient.get_test_link}}>new test</a>
+
+<h3>Diagnoses: </h3>
+{% if diagnosis_list %}
+{% for diagnose in diagnosis_list %}
+<li>
+    <a>{{diagnose.get_diagnose_display}} </a>
+    <a href={{diagnose.get_delete_url}}>Delete</a>
+</li>
+{%  endfor %}
+{% else %}
+<p>This patient has no diagnoses.</p>
+{% endif %}
+{% endif %}
+{% if request.user|has_group:'doctors' %}
+<a href={{patient.get_diagnose_link}}>new diagnose</a>
+
+
+
 {% if request.user|has_group:'nurses' %}
 {% endif %}
 

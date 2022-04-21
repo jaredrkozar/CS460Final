@@ -24,6 +24,9 @@ urlpatterns = [
     path('symptom/<int:pk>/delete/', views.symptom_delete, name='symptom-delete'),
     path('test/<int:pk>/delete/', views.test_delete, name='test-delete'),
     path('patient/<int:pk>/delete/', views.patient_delete, name='patient-delete'),
+    path('med/<int:pk>/delete/', views.medicine_delete, name='medicine-delete'),
+    path('diagnose/<int:pk>', views.create_diagnose_form, name='create_diagnose_form'),
+    path('diagnose/<int:pk>/delete/', views.diagnose_delete, name='diagnose-delete'),
 
 ]
 

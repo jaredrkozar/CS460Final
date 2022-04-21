@@ -77,6 +77,9 @@ class Patient(models.Model):
     def get_test_link(self):
         return reverse('new_test', args=[str(self.id)])
 
+    def get_diagnose_link(self):
+        return reverse('create_diagnose_form', args=[str(self.id)])
+
     def get_allergy_link(self):
         return reverse('new_allergy', args=[str(self.id)])
 

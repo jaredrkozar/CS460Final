@@ -1,11 +1,17 @@
 from django import forms
-from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy, CovidVaccineShot
+from .models import Patient, EmergencyContact, Symptom, Medication, Test, Allergy, CovidVaccineShot, Diagnose
 
 
 class EmergencyContactForm(forms.ModelForm):
     class Meta:
         model = EmergencyContact
         fields = ('first_name', 'last_name', 'patient', 'phone_number')
+
+
+class DiagnoseForm(forms.ModelForm):
+    class Meta:
+        model = Diagnose
+        fields = '__all__'
 
 
 class PatientNurseForm(forms.ModelForm):

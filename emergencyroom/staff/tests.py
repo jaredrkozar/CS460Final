@@ -1,4 +1,6 @@
 from django.test import TestCase
+from django.urls import reverse
+
 from .models import Patient
 from .models import Symptom
 from .models import Allergy
@@ -80,8 +82,12 @@ class TestSymptomModel(TestCase):
         print("Testing that patient has one symptom")
         patient = Patient.objects.get(first_name="John")
         symptoms = Symptom.objects.filter(patient=patient)
-        # print(symptoms)
         self.assertTrue(len(symptoms) == 1)
+
+    def test_get_delete_url(self):
+        print("Testing symptom get_delete_url")
+        symptom = Symptom.objects.get(id=1)
+        self.assertEqual(symptom.get_delete_url(), "/staff/symptom/1/delete/")
 
 
 class TestAllergyModel(TestCase):
@@ -98,6 +104,11 @@ class TestAllergyModel(TestCase):
         patient = Patient.objects.get(first_name="John")
         allergies = Allergy.objects.filter(patient=patient)
         self.assertTrue(len(allergies) == 2)
+
+    def test_get_delete_url(self):
+        print("Testing Allergy get_delete_url")
+        allergy = Allergy.objects.get(id=1)
+        self.assertEqual(allergy.get_delete_url(), "/staff/allergy/1/delete/")
 
 
 class TestMedicationModel(TestCase):
@@ -119,6 +130,11 @@ class TestMedicationModel(TestCase):
         medicines = Medication.objects.filter(patient=patient)
         self.assertEqual(len(medicines), 1)
         self.assertEqual(medicines[0].medicine, "A")
+
+    def test_get_delete_url(self):
+        print("Testing medication get_delete_url")
+        medication = Medication.objects.get(id=1)
+        self.assertEqual(medication.get_delete_url(), "/staff/med/1/delete/")
 
 
 class TestEmergencyContactModel(TestCase):
@@ -147,6 +163,11 @@ class TestEmergencyContactModel(TestCase):
         contact = EmergencyContact.objects.get(id=1)
         self.assertEqual(str(contact), f"{contact.last_name}, {contact.first_name}")
 
+    def test_get_delete_url(self):
+        print("Testing EmergencyContact get_delete_url")
+        contact = EmergencyContact.objects.get(id=1)
+        self.assertEqual(contact.get_delete_url(), "/staff/contact/1/delete/")
+
 
 class TestDiagnoseModel(TestCase):
     @classmethod
@@ -164,6 +185,14 @@ class TestDiagnoseModel(TestCase):
         diagnosis = Diagnose.objects.filter(patient=patient)
         self.assertEqual(len(diagnosis), 1, "Patient was not correctly given a diagnosis")
         self.assertEqual(diagnosis[0].diagnose, "E")
+
+    def test_get_delete_url(self):
+        print("Testing Diagnose get_delete_url")
+        diagnosis = Diagnose.objects.get(id=1)
+        self.assertEqual(diagnosis.get_delete_url(), "/staff/diagnose/1/delete/")
+
+
+
 
 
 class TestCovidVaccineShot(TestCase):
@@ -191,3 +220,7 @@ class TestCovidVaccineShot(TestCase):
         shot = CovidVaccineShot.objects.get(id=1)
         self.assertEqual(shot._meta.get_field("date_received").verbose_name, "date received")
 
+    def test_get_delete_url(self):
+        print("Testing Shot get_delete_url")
+        shot = CovidVaccineShot.objects.get(id=1)
+        self.assertEqual(shot.get_delete_url(), "/staff/covid_shot/1/delete/")
