@@ -13,7 +13,9 @@
 {% if not request.user|has_group:'billing' %}
 <h3>Height: {{ patient.height }}</h3>
 <h3>Weight: {{ patient.weight }}</h3>
+<h3>Health Insurance Provider: {{ patient.insurance_provider }}</h3>
 {% if request.user|has_group:'medical_professional' %}
+<h3>Doctor: {{ patient.primary_doctor_name }}</h3>
 <h3>Heart Rate: {{ patient.heart_rate }}</h3>
 <h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }}</h3>
 <h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }}</h3>
