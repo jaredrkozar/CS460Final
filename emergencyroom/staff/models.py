@@ -11,6 +11,8 @@ class Patient(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
+    insurance_provider = models.CharField(max_length=40, null=True)
+    primary_doctor_name = models.CharField(max_length=40, null=True)
     date_of_birth = models.DateField(null=True)
     height = models.FloatField(help_text='Height in cm', validators=[MinValueValidator(Decimal('0.01'))])
     weight = models.FloatField(help_text='Weight in kg,', validators=[MinValueValidator(Decimal('0.01'))])
