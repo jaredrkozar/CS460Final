@@ -11,21 +11,21 @@
 <h3>Last name: {{ patient.last_name }}</h3>
 <h3>Date of Birth: {{ patient.date_of_birth }}</h3>
 {% if not request.user|has_group:'billing' %}
-<h3>Height: {{ patient.height }}</h3>
-<h3>Weight: {{ patient.weight }}</h3>
+<h3>Height: {{ patient.height }} ft</h3>
+<h3>Weight: {{ patient.weight }} oz</h3>
 <h3>Health Insurance Provider: {{ patient.insurance_provider }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 <h3>Doctor: {{ patient.primary_doctor_name }}</h3>
-<h3>Heart Rate: {{ patient.heart_rate }}</h3>
-<h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }}</h3>
-<h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }}</h3>
+<h3>Heart Rate: {{ patient.heart_rate }} bpm </h3>
+<h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }} mmHg</h3>
+<h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }} mmHg</h3>
 {%endif%}
 <h3>Religious Restrictions: {{ patient.religious_restriction }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 <h3>Doctor Notes: {{ patient.doctor_note }}</h3>
 <h3>Nurse Notes: {{ patient.nurse_note }}</h3>
 {%endif%}
-<h3>Number of Nights Stayed: {{ patient.nights_stayed }}</h3>
+<h3>Number of Nights Stayed: {{ patient.nights_stayed }} nights</h3>
 <h3>Drug Usage: {{ patient.drug_usage }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 <h3>Discharge Instructions: {{ patient.discharge_instructions }}</h3>

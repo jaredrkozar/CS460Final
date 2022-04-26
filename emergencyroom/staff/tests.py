@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.test import Client
 
 from .models import Patient
 from .models import Symptom
@@ -15,16 +16,19 @@ def createTestPatient():
     """
     Creates a test patient with first name John and last name Doe
     """
+
     patient = Patient.objects.create(
         first_name="John",
         last_name="Doe",
         date_of_birth=None,
         bill_due_date=None,
+        # insurance_provider="Cigna",
         height=100,
         weight=100,
         blood_pressure_upper=None,
         blood_pressure_lower=None,
         religious_restriction="Hello",
+        primary_doctor_name="Mike",
         doctor_note="Needs blood urgently",
         nurse_note="I agree with the doctor",
         nights_stayed=10,
@@ -36,6 +40,14 @@ def createTestPatient():
         gender="M")
     return patient
 
+#creates a emergency Contact
+def createEmergencyContact():
+    contact = EmergencyContact.objects.create(
+        first_name="Tom",
+        last_name="fakeName",
+        phone_number=9176561034,
+        patient=createTestPatient())
+    return contact
 
 class TestPatientModel(TestCase):
     @classmethod
@@ -191,10 +203,6 @@ class TestDiagnoseModel(TestCase):
         diagnosis = Diagnose.objects.get(id=1)
         self.assertEqual(diagnosis.get_delete_url(), "/staff/diagnose/1/delete/")
 
-
-
-
-
 class TestCovidVaccineShot(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
@@ -224,3 +232,73 @@ class TestCovidVaccineShot(TestCase):
         print("Testing Shot get_delete_url")
         shot = CovidVaccineShot.objects.get(id=1)
         self.assertEqual(shot.get_delete_url(), "/staff/covid_shot/1/delete/")
+
+class TestPatientList(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        # create a test patient
+        createTestPatient()
+
+    def index_page_exista(self):
+        print("Checking if the index page is available")
+        response = self.client.get('index')
+        self.assertEqual(response.status_code, 200)
+
+    def all_patients_form_exist(self):
+        print("Checking if the add patient form is available")
+        response = self.client.get('new_patient')
+        self.assertEqual(response.status_code, 400)
+
+    def new_symptom_page_exista(self):
+        print("Checking if the new symptom page is available")
+        response = self.client.get('new_symptom')
+        self.assertEqual(response.status_code, 200)
+
+    def new_medication_page_exista(self):
+        print("Checking if the new medication page is available")
+        response = self.client.get('new_med')
+        self.assertEqual(response.status_code, 200)
+
+    def new_allergy_page_exista(self):
+        print("Checking if the new allery page is available")
+        response = self.client.get('new_allergy')
+        self.assertEqual(response.status_code, 200)
+
+    def bill_form_page_exista(self):
+        print("Checking if the new allery page is available")
+        response = self.client.get('bill_form')
+        self.assertEqual(response.status_code, 200)
+
+    def covid_shot_page_exista(self):
+        print("Checking if the new covid shot page is available")
+        response = self.client.get('create_covid_shot_form')
+        self.assertEqual(response.status_code, 200)
+
+    def covid_shot_page_exista(self):
+        print("Checking if the new covid shot page is available")
+        response = self.client.get('create_covid_shot_form')
+        self.assertEqual(response.status_code, 200)
+
+class TestDeletingObjects(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        # create a test patient
+        createEmergencyContact()
+        createEmergencyContact()
+
+
+    def test_deleteEmergencyContact(self):
+        c = Client()
+        c.post('/login/', {'username': 'doctor1', 'password': 'pw'})
+        print("Testing Contact Delete")
+        #self.assertEqual(EmergencyContact.objects.count(), 2)
+        contact = EmergencyContact.objects.first()
+        #print(contact)
+        response = c.post('/staff/contact/{}/delete/'.format(contact.id))
+        self.assertEqual(EmergencyContact.objects.count(), 2)
+
+
+
+
