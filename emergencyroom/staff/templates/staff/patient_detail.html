@@ -3,9 +3,28 @@
 
 {% block content %}
 <h1>Patient Details for {{ patient.first_name }}{{" "}}{{ patient.last_name }}</h1>
-{% if request.user|has_group:'nurses' %}
-<a href={{patient.get_nurse_url}} class="editPatientButton">Edit</a>
+
+
+<div class="buttons">
+{% if request.user|has_group:'doctors' %}
+<button type="button">
+   <a href={{patient.get_doctor_url}}>Edit Patient</a>
+</button>
+
 {% endif %}
+{% if request.user|has_group:'billing' %}
+<button type="button">
+   <a href={{patient.get_bill_form_url}}>Set Bill Date</a>
+</button>
+
+<h3>Bill Due {{ patient.bill_due_date }}</h3>
+<button type="button">
+    <a href={{patient.get_bill_display_url}}>View Bill</a>
+</button>
+
+{% endif %}
+</div>
+
 <h2>Name</h2>
 <h3>First name: {{ patient.first_name }}</h3>
 <h3>Last name: {{ patient.last_name }}</h3>
@@ -149,15 +168,6 @@
 
 {% if request.user|has_group:'nurses' %}
 {% endif %}
-
-{% endif %}
-{% if request.user|has_group:'doctors' %}
-<a href={{patient.get_doctor_url}}>Edit</a>
-{% endif %}
-{% if request.user|has_group:'billing' %}
-<a href={{patient.get_bill_form_url}}>Set Bill Date</a>
-<h3>Bill Due {{ patient.bill_due_date }}</h3>
-<a href={{patient.get_bill_display_url}}>View Bill</a>
 
 {% endif %}
 

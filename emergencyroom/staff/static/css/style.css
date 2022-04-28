@@ -3,7 +3,20 @@ body, html {
     overflow-y: auto;
 }
 
-.sidebar-nav > *:not(#currentUser) {
+.sidebar {
+  height: 100%;
+  width: 275px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidebar-nav > * {
+    color: white;
     font-size: 40px;
     position: relative;
     left: 15px !important;
@@ -12,38 +25,26 @@ body, html {
     transition: all .2s ease-in;
     padding: 5px;
     height: 70px;
-    color: var(--textcolor);
-    border: solid;
-    border-width: medium;
-    border-radius: 10px;
-    border-color: var(--bordercolor);
-}
-
-.sidebar-nav:nth-child(3) {
-    color: inherit;
-    width: 1400px;
-  text-decoration: none;
 }
 
 .sidebar-nav > *:not(#currentUser):hover {
-    background-color: var(--bordercolor);
-}
-
-.sidebar-nav > * {
-    width: 250px;
-    margin-right: 34px;
-    display: block;
+    font-weight: bold;
+    color: white;
 }
 
 .sidebar-nav {
     width: 250px;
     margin-right: 34px;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 
 #logbutton {
    --bordercolor: #ff7272;
+    top: 20px;
 }
 
 .sidebar-nav > a {
@@ -60,25 +61,22 @@ body, html {
     position: relative;
     left: 50px;
     top: 30px;
-    color: white;
+    color: black;
     margin-right: 100px;
     width: 400px;
     text-align: center;
-}
-
-.editPatientButton {
-    position: relative;
-    font-size: 25px;
+    height: 900px;
 }
 
 .patientDetails {
-    position: absolute;
-    left: 400px;
+    position: relative;
+    left: 450px;
 }
 
 .content:not(.emergencyform) {
     position: relative;
-    left: 300px;
+    left: 350px;
+    width: 500px;
 }
 
 .emergencyform {
@@ -89,20 +87,43 @@ input[type=number], [type=text], textarea {
     border: solid;
     border-width: 1px;
     border-radius: 10px;
-    border-color: #c0c0c0;
+}
+
+button {
+    border: solid;
+    border-width: 1px;
+    border-color: transparent;
+    border-radius: 10px;
+     background-color: #c0bfbf;
+}
+
+button a {
+    text-decoration: none;
+    color: black;
+    inherit: black
+}
+
+button a:hover {
+    text-decoration: none;
+    inherit: black;
 }
 
 input[type=submit] {
+
     border: solid;
     border-width: 1px;
+    border-color: transparent;
     border-radius: 10px;
-    border-color: #c0c0c0;
+    background-color: #c0bfbf;
     transition: 0.3s;
 }
 
+button:hover {
+    background-color: #b2b0b0;
+  }
+
 input[type=submit]:hover {
-    background-color: #c0c0c0;
-    color: white;
+    background-color: #b2b0b0;
   }
 
 table {
@@ -116,7 +137,15 @@ table {
 }
 
 .patientList {
-    position: absolute;
+    position: relative;
     top: 130px;
     left: 30px;
+    width: 900px;
+}
+
+.editPatientButton {
+    background-color: green;
+    position: relative;
+    top: 30px;
+    left: 40px;
 }
