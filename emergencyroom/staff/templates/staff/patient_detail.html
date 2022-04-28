@@ -30,8 +30,8 @@
 <h3>Last name: {{ patient.last_name }}</h3>
 <h3>Date of Birth: {{ patient.date_of_birth }}</h3>
 {% if not request.user|has_group:'billing' %}
-<h3>Height: {{ patient.height }} ft</h3>
-<h3>Weight: {{ patient.weight }} oz</h3>
+<h3>Height: {{ patient.height }} cm</h3>
+<h3>Weight: {{ patient.weight }} kg</h3>
 <h3>Gender: {{ patient.get_gender_display }}</h3>
 <h3>Race: {{ patient.race }}</h3>
 <h3>Sexually Active: {{ patient.sexual_active }}</h3>
