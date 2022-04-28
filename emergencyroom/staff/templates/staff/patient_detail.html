@@ -25,34 +25,51 @@
 {% endif %}
 </div>
 
-<h2>Name</h2>
+<h2>Basic Details</h2>
 <h3>First name: {{ patient.first_name }}</h3>
 <h3>Last name: {{ patient.last_name }}</h3>
 <h3>Date of Birth: {{ patient.date_of_birth }}</h3>
 {% if not request.user|has_group:'billing' %}
 <h3>Height: {{ patient.height }} ft</h3>
 <h3>Weight: {{ patient.weight }} oz</h3>
+<h3>Gender: {{ patient.get_gender_display }}</h3>
+<h3>Race: {{ patient.race }}</h3>
+<h3>Sexually Active: {{ patient.sexual_active }}</h3>
 <h3>Health Insurance Provider: {{ patient.insurance_provider }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 <h3>Doctor: {{ patient.primary_doctor_name }}</h3>
+<br>
+
+<h2>Vitals</h2>
 <h3>Heart Rate: {{ patient.heart_rate }} bpm </h3>
 <h3>Blood Pressure: (Upper) {{ patient.blood_pressure_upper }} mmHg</h3>
 <h3>Blood Pressure: (Lower) {{ patient.blood_pressure_lower }} mmHg</h3>
 {%endif%}
 <h3>Religious Restrictions: {{ patient.religious_restriction }}</h3>
 {% if request.user|has_group:'medical_professional' %}
+
+{%endif%}
+
+{% if request.user|has_group:'medical_professional' %}
+
+<h3>IV: {{ patient.IV }}</h3>
+{% endif %}
+
+<h3>Blood Type: {{ patient.get_blood_type_display }}</h3>
+<h3>Drug Usage: {{ patient.drug_usage }}</h3>
+
+<br>
+<h2>Notes</h2>
 <h3>Doctor Notes: {{ patient.doctor_note }}</h3>
 <h3>Nurse Notes: {{ patient.nurse_note }}</h3>
-{%endif%}
-<h3>Number of Nights Stayed: {{ patient.nights_stayed }} nights</h3>
-<h3>Drug Usage: {{ patient.drug_usage }}</h3>
 {% if request.user|has_group:'medical_professional' %}
 <h3>Discharge Instructions: {{ patient.discharge_instructions }}</h3>
 {%endif%}
-<h3>Gender: {{ patient.get_gender_display }}</h3>
-<h3>Race: {{ patient.race }}</h3>
-<h3>Sexually Active: {{ patient.sexual_active }}</h3>
-<h3>Covid Vaccines: </h3>
+<h3>Number of Nights Stayed: {{ patient.nights_stayed }} nights</h3>
+
+<br>
+
+<h2>Covid Vaccines: </h2>
 {% if covid_vaccine_list %}
 {% for vaccine in covid_vaccine_list %}
 <li>
@@ -62,21 +79,14 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient is not vaccinated.</p>
+<h3>This patient is not vaccinated.</h3>
 {% endif %}
 <a href={{patient.get_covid_shot_url}}>new vaccine</a>
 <br>
 
+<br>
 {% if request.user|has_group:'medical_professional' %}
-
-<h3>IV: {{ patient.IV }}</h3>
-{% endif %}
-<h3>Blood Type: {{ patient.get_blood_type_display }}</h3>
-{% if request.user|has_group:'medical_professional' %}
-
-
-<div class="medication">
-    <h3>Medication: </h3>
+    <h2>Medication: </h2>
     {% if medication_list %}
     {% for med in medication_list %}
     <li>
@@ -87,13 +97,14 @@
     </li>
     {% endfor %}
     {% else %}
-    <p>This patient is not on any medication.</p>
+    <h3>This patient is not on any medication.</h3>
     {% endif %}
     <a href={{patient.get_med_link}}>new medication</a>
-</div>
 
 {% endif %}
-<h3>Emergency Contacts: </h3>
+<br>
+<br>
+<h2>Emergency Contacts: </h2>
 {% if emergency_contact_list %}
 {% for contact in emergency_contact_list %}
 <li>
@@ -102,10 +113,13 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no emergency contacts.</p>
+<h3>This patient has no emergency contacts.</h3>
 {% endif %}
 <a href={{patient.get_contact_link}}>new contact</a>
-<h3>Symptoms: </h3>
+<br>
+<br>
+
+<h2>Symptoms: </h2>
 {% if symptom_list %}
 {% for symptom in symptom_list %}
 <li>
@@ -115,12 +129,12 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no symptoms.</p>
+<h3>This patient has no symptoms.</h3>
 {% endif %}
 <a href={{patient.get_symptom_link}}>new symptom</a>
-
-
-<h3>Allergies: </h3>
+<br>
+<br>
+<h2>Allergies: </h2>
 {% if allergy_list %}
 {% for allergy in allergy_list %}
 <li>
@@ -130,11 +144,12 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no allergies.</p>
+<h3>This patient has no allergies.</h3>
 {% endif %}
 <a href={{patient.get_allergy_link}}>new allergy</a>
-
-<h3>Tests: </h3>
+<br>
+<br>
+<h2>Tests: </h2>
 {% if test_list %}
 {% for test in test_list %}
 <li>
@@ -143,13 +158,14 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no tests.</p>
+<h3>This patient has no tests.</h3>
 {% endif %}
 {% endif %}
 {% if request.user|has_group:'doctors' %}
 <a href={{patient.get_test_link}}>new test</a>
+<br>
 
-<h3>Diagnoses: </h3>
+<h2>Diagnoses: </h2>
 {% if diagnosis_list %}
 {% for diagnose in diagnosis_list %}
 <li>
@@ -158,12 +174,12 @@
 </li>
 {%  endfor %}
 {% else %}
-<p>This patient has no diagnoses.</p>
+<h3>This patient has no diagnoses.</h3>
 {% endif %}
 {% endif %}
 {% if request.user|has_group:'doctors' %}
 <a href={{patient.get_diagnose_link}}>new diagnose</a>
-
+<br>
 
 
 {% if request.user|has_group:'nurses' %}
