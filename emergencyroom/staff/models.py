@@ -11,21 +11,21 @@ class Patient(models.Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4())
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    insurance_provider = models.CharField(max_length=40, null=True)
-    primary_doctor_name = models.CharField(max_length=40, null=True)
-    date_of_birth = models.DateField(null=True)
-    height = models.FloatField(help_text='Height in cm', validators=[MinValueValidator(Decimal('0.01'))])
-    weight = models.FloatField(help_text='Weight in kg,', validators=[MinValueValidator(Decimal('0.01'))])
-    heart_rate = models.PositiveIntegerField(null=True)
-    blood_pressure_upper = models.PositiveIntegerField(null=True)
-    blood_pressure_lower = models.PositiveIntegerField(null=True)
-    religious_restriction = models.TextField()
-    doctor_note = models.TextField(null=True)
-    nurse_note = models.TextField(null=True)
-    nights_stayed = models.PositiveSmallIntegerField(default=0)
+    insurance_provider = models.CharField(max_length=40, null=True, blank=True)
+    primary_doctor_name = models.CharField(max_length=40, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    height = models.FloatField(help_text='Height in cm', validators=[MinValueValidator(Decimal('0.01'))], null=True, blank=True)
+    weight = models.FloatField(help_text='Weight in kg,', validators=[MinValueValidator(Decimal('0.01'))],  null=True, blank=True)
+    heart_rate = models.PositiveIntegerField(null=True,  blank=True)
+    blood_pressure_upper = models.PositiveIntegerField(null=True,  blank=True)
+    blood_pressure_lower = models.PositiveIntegerField(null=True,  blank=True)
+    religious_restriction = models.TextField( blank=True)
+    doctor_note = models.TextField(null=True, blank=True)
+    nurse_note = models.TextField(null=True, blank=True)
+    nights_stayed = models.PositiveSmallIntegerField(default=0, blank=True)
     # bill = models.PositiveBigIntegerField()
-    drug_usage = models.BooleanField(null=True)
-    discharge_instructions = models.TextField(null=True)
+    drug_usage = models.BooleanField(null=True, blank=True)
+    discharge_instructions = models.TextField(null=True, blank=True)
     gender_options = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -34,9 +34,9 @@ class Patient(models.Model):
     gender = models.CharField(max_length=1,
                               choices=gender_options,
                               blank=True, )
-    race = models.CharField(null=True, max_length=20)
-    sexual_active = models.BooleanField(null=True)
-    IV = models.BooleanField(null=True)
+    race = models.CharField(null=True, max_length=20, blank=True)
+    sexual_active = models.BooleanField(null=True, blank=True)
+    IV = models.BooleanField(null=True, blank=True)
     blood_type_options = (
         ('1', 'O negative'),
         ('2', 'O positive'),
